@@ -1,12 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from "react";
 
-function App() {
+import Routers from "./routers";
+
+export default function App() {
   return (
-    <div className="App">
-      <div>Hello </div>
+    <div>
+      <Routers />
     </div>
   );
 }
-
-export default App;
