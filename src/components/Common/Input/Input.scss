@@ -1,0 +1,25 @@
+.input {
+  position: relative;
+  &__error {
+    color: tomato;
+    font-size: 10px;
+    height: 13px;
+    margin-top: 2px;
+  }
+  &__input {
+    border: none;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0);
+  }
+  &__main {
+    border: solid;
+    height: 32px;
+    border: {
+      width: 1px;
+      color: #ddd;
+      border: 5px;
+    }
+    display: flex;
+    align-items: center;
+  }
+}
