@@ -1,23 +1,24 @@
 import React from "react";
+import "./Button.scss";
 
-export default function Button(
+export default function Button({
   type,
-  title,
+  children,
   onClick,
-  className,
+
   backgroundColor,
-  color
-) {
+  color,
+}) {
   return (
-    <div className={className}>
+    
       <button
         className="btn"
         type={type}
         onClick={onClick}
         style={{ backgroundColor: backgroundColor, color: color }}
       >
-        {title}
+        {children}
       </button>
-    </div>
+    
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
+import "./BlankLayout.scss";
 
 export default function BlankLayout({ children }) {
-  return <div>{children}</div>;
+  return <div className="blank-layout">{children}</div>;
 }

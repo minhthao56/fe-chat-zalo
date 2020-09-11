@@ -1,14 +1,17 @@
 import React from "react";
 import "./Login.scss";
-import { LogoBlankLayout, Input } from "../../components";
-import { useFormik } from "formik"
-import * as Yup from "yup"
+import {
+  LogoBlankLayout,
+  Input,
+  Button,
+  ContainerAuth,
+} from "../../components";
+
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function Login() {
-
-  const ValidationSchema = Yup.object().shape({
-   
-  })
+  const ValidationSchema = Yup.object().shape({});
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -16,37 +19,40 @@ export default function Login() {
     },
     validationSchema: ValidationSchema,
     onSubmit: (values) => console.log(values),
-  })
+  });
 
   return (
-    <div>
-      {/* <LogoBlankLayout /> */}
-      <form onSubmit = {formik.handleSubmit}>
-        <Input
-          type="email"
-          placeholder="Email"
-          id="email"
-          name="email"
-          error="Hiển thị lỗi"
-          marginBottom="5px"
-          onChange = {formik.handleChange}
-          onBlur = {formik.handleBlur}
-          value = {formik.values.email}
-        />
+    <div className="login">
+      <ContainerAuth>
+        <div className="login__logo">
+          <LogoBlankLayout />
+        </div>
 
-        <Input
-          type="password"
-          placeholder="Password"
-          name="password"
-          id="password"
-          error="Hiển thị lỗi "
-          marginBottom="10px"
-          onChange = {formik.handleChange}
-          onBlur = {formik.handleBlur}
-          value = {formik.values.password}
-        />
-        <button type="submit">Login</button>
-      </form>
+        <form onSubmit={formik.handleSubmit} className="login__form">
+          <Input
+            type="email"
+            placeholder="Email"
+            id="email"
+            name="email"
+            marginBottom="5px"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+          />
+
+          <Input
+            type="password"
+            placeholder="Password"
+            name="password"
+            id="password"
+            marginBottom="10px"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+          />
+          <Button type="submit">Login</Button>
+        </form>
+      </ContainerAuth>
     </div>
   );
 }
