@@ -7,16 +7,25 @@
   width: 100%;
   &__form {
     width: 100%;
-    flex: 3;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
+    margin-bottom: 30px;
   }
   &__logo {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 50px;
+  }
+  &__link {
+    text-decoration: none;
+    color: #0268fc;
+    font-size: 13px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__sub {
+    font-size: 10px;
+    color: #777777;
+    margin-top: 60px;
+  }
+  &__btn {
+    margin-top: 10px;
   }
 }

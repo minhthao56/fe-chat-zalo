@@ -6,12 +6,15 @@ import {
   Button,
   ContainerAuth,
 } from "../../components";
-
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 export default function Login() {
-  const ValidationSchema = Yup.object().shape({});
+  const ValidationSchema = Yup.object().shape({
+    email: Yup.string("").email("Invalid email").required("Required"),
+    password: Yup.string("").min(6).max(10),
+  });
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -27,17 +30,19 @@ export default function Login() {
         <div className="login__logo">
           <LogoBlankLayout />
         </div>
-
         <form onSubmit={formik.handleSubmit} className="login__form">
           <Input
             type="email"
             placeholder="Email"
             id="email"
             name="email"
-            marginBottom="5px"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
+            error={formik.touched.email && formik.errors.email}
+            borderColorErr={
+              formik.touched.email && formik.errors.email ? "tomato" : null
+            }
           />
 
           <Input
@@ -45,13 +50,29 @@ export default function Login() {
             placeholder="Password"
             name="password"
             id="password"
-            marginBottom="10px"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
+            error={formik.touched.password && formik.errors.password}
+            borderColorErr={
+              formik.touched.password && formik.errors.password
+                ? "tomato"
+                : null
+            }
           />
-          <Button type="submit">Login</Button>
+          <Link className="login__link" to="/">
+            You forgot my password?
+          </Link>
+          <div className="login__btn">
+            <Button type="submit">Login</Button>
+          </div>
         </form>
+        <Link className="login__link" to="/">
+          Sign Up
+        </Link>
+        <span className="login__sub">
+          Dùng tài khoản Zalo để truy cập các ứng dụng của ZA
+        </span>
       </ContainerAuth>
     </div>
   );

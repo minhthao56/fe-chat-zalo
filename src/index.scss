@@ -5,11 +5,11 @@ button {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 input {
+  font-family: "Montserrat", sans-serif;
   &:focus {
     outline: none;
   }

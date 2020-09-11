@@ -7,12 +7,7 @@
     height: 13px;
     margin-top: 2px;
   }
-  &__input {
-    border: none;
-    height: 100%;
-    background-color: rgba($color: #000000, $alpha: 0);
-    padding-left: 5px;
-  }
+
   &__main {
     border: solid;
     height: 38px;
@@ -23,5 +18,12 @@
     }
     display: flex;
     align-items: center;
+  }
+  &__input {
+    border: none;
+    height: 100%;
+    width: 100%;
+    background-color: rgba($color: #000000, $alpha: 0);
+    padding-left: 5px;
   }
 }
