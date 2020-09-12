@@ -1,3 +1,5 @@
+@import "../../../assets/scss/variable.scss";
+
 .btn {
   border: none;
   height: 38px;
@@ -5,8 +7,11 @@
   cursor: pointer;
   border-radius: 5px;
   color: white;
-  background-color: #0268fc;
+  background-color: $primaryColor;
   transition: all 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     background-color: #1573ff;
   }

@@ -60,14 +60,12 @@ export default function Login() {
                 : null
             }
           />
-          <Link className="login__link" to="/">
-            You forgot my password?
-          </Link>
+          <span className="login__link">You forgot my password?</span>
           <div className="login__btn">
             <Button type="submit">Login</Button>
           </div>
         </form>
-        <Link className="login__link" to="/">
+        <Link className="login__link" to="/signup">
           Sign Up
         </Link>
         <span className="login__sub">

@@ -1,0 +1,26 @@
+.list-contact {
+    &__img {
+        height: 48px;
+        width: 48px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    &__content {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        transition: all 0.4s;
+        cursor: pointer;
+        &:hover {
+            background-color: #efefef;
+        }
+    }
+    &__name {
+        margin-bottom: 5px;
+    }
+    &__email {
+        font-size: 14px;
+        color: #999999;
+        font-weight: 300;
+    }
+}

@@ -1,0 +1,43 @@
+@import "../../assets/scss/mixin.scss";
+
+.header-bar {
+    height: 82px;
+    border-bottom: solid;
+    @include borderColor;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    &__name {
+        margin-bottom: 10px;
+    }
+    &__form {
+        display: flex;
+        align-items: center;
+    }
+    &__input {
+        border: solid;
+        @include borderColor;
+        border-radius: 32px;
+        height: 32px;
+        padding-left: 10px;
+        flex: 1;
+        background-color: #efefef;
+    }
+    &__btn {
+        border: none;
+        margin-left: 5px;
+        height: 32px;
+        width: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        background-color: #0696f9;
+    }
+    &__icon {
+        height: 15px;
+    }
+}

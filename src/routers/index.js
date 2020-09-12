@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 
-import { Home, Login, SignUp } from "../containers/index";
+import { Home, Login, SignUp, Contact } from "../containers/index";
 
 import { MainLayout, BlankLayout } from "../layouts";
 
@@ -24,6 +24,12 @@ export default function Routers() {
           path={`/signup`}
           component={SignUp}
           layout={BlankLayout}
+        />
+        <PubliceRoute
+          exact
+          path={`/contact`}
+          component={Contact}
+          layout={MainLayout}
         />
       </Switch>
     </Router>

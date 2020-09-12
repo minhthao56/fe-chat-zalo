@@ -1,8 +1,10 @@
+@import "../../assets/scss/variable.scss";
+
 .login {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f8fb;
+  background-color: $bgColorBlank;
   height: 100%;
   width: 100%;
   &__form {
@@ -14,8 +16,10 @@
   }
   &__link {
     text-decoration: none;
-    color: #0268fc;
+    color: $primaryColor;
     font-size: 13px;
+    transition: all 0.4s;
+    cursor: pointer;
     &:hover {
       text-decoration: underline;
     }

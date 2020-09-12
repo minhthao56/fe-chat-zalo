@@ -1,0 +1,29 @@
+@import "../../assets/scss/variable.scss";
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f8fb;
+    height: 100%;
+    width: 100%;
+    &__logo {
+        margin-bottom: 20px;
+    }
+    &__form {
+        width: 100%;
+    }
+    &__link {
+        font-size: 13px;
+        color: $primaryColor;
+        text-decoration: none;
+    }
+    &__btn {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    &__sub {
+        font-size: 10px;
+        margin-top: 20px;
+    }
+}
