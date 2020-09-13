@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Login.scss";
 import {
   LogoBlankLayout,
@@ -6,11 +6,20 @@ import {
   Button,
   ContainerAuth,
 } from "../../components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { doLogin } from "../../redux/actions";
+import { SUCCESS, ERROR } from "../../redux/constants";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  let history = useHistory();
+  const reduxUserData = useSelector((state) => state.reduxUserData);
   const ValidationSchema = Yup.object().shape({
     email: Yup.string("").email("Invalid email").required("Required"),
     password: Yup.string("").min(6).max(10),
@@ -21,8 +30,23 @@ export default function Login() {
       password: "",
     },
     validationSchema: ValidationSchema,
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => dispatch(doLogin(values)),
   });
+
+  useEffect(() => {
+    if (reduxUserData.type === ERROR) {
+      if (Array.isArray(reduxUserData.data.message)) {
+        reduxUserData.data.message.forEach((mes) => toast.error(mes));
+      } else {
+        toast.error(reduxUserData.data.message);
+      }
+    } else if (reduxUserData.type === SUCCESS) {
+      localStorage.setItem("token", reduxUserData.data.token);
+      window.location.replace("/");
+    } else {
+      history.push("/login");
+    }
+  }, [reduxUserData, history]);
 
   return (
     <div className="login">

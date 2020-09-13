@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./SignUp.scss";
 import {
   LogoBlankLayout,
@@ -6,18 +6,28 @@ import {
   Button,
   ContainerAuth,
 } from "../../components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { doSignUp } from "../../redux/actions";
+import { SUCCESS, ERROR } from "../../redux/constants";
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  let history = useHistory();
+  const reduxUserData = useSelector((state) => state.reduxUserData);
+
   const ValidationSchema = Yup.object().shape({
     name: Yup.string("")
       .min(4, "Ít nhất 4 ký tự")
       .max(15, "Nhiều nhất 15 ký tự")
       .required("Required"),
     email: Yup.string("").email("Invalid email").required("Required"),
-    password: Yup.string("").min(6).max(10).required("Required"),
+    password: Yup.string("").min(6).max(20).required("Required"),
     confirm: Yup.string("")
       .required("Required")
       .test("", "Mật khẩu chưa khớp", function (value) {
@@ -32,8 +42,23 @@ export default function SignUp() {
       confirm: "",
     },
     validationSchema: ValidationSchema,
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => {
+      dispatch(doSignUp(values));
+    },
   });
+
+  useEffect(() => {
+    if (reduxUserData.type === ERROR) {
+      reduxUserData.data.message.forEach((mes) => toast.error(mes));
+    } else if (reduxUserData.type === SUCCESS) {
+      localStorage.setItem("token", reduxUserData.data.token);
+      window.location.replace("/");
+      toast.success("Your acconut is created");
+    } else {
+      history.push("/signup");
+    }
+  }, [reduxUserData, history]);
+
   return (
     <div className="signup">
       <ContainerAuth>

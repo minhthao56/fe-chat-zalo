@@ -6,13 +6,13 @@ import { Home, Login, SignUp, Contact } from "../containers/index";
 import { MainLayout, BlankLayout } from "../layouts";
 
 import PubliceRoute from "./PublicRouter";
-// import PrivateRouter from "./PrivateRoute";
+import PrivateRouter from "./PrivateRouter";
 
 export default function Routers() {
   return (
     <Router>
       <Switch>
-        <PubliceRoute exact path={`/`} component={Home} layout={MainLayout} />
+        <PrivateRouter exact path={`/`} component={Home} layout={MainLayout} />
         <PubliceRoute
           exact
           path={`/login`}
@@ -25,7 +25,7 @@ export default function Routers() {
           component={SignUp}
           layout={BlankLayout}
         />
-        <PubliceRoute
+        <PrivateRouter
           exact
           path={`/contact`}
           component={Contact}
