@@ -67,7 +67,6 @@ export const doGetAllUser = () => (dispatch) => {
 };
 
 export const doGetConversationOfUser = (id) => (dispatch) => {
-  console.log(id);
   apiConversation
     .getConversationOfUser(id)
     .then((res) =>

@@ -8,7 +8,7 @@ export default function ListConversation() {
   const reduxConversation = useSelector((state) => state.reduxConversation);
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(doGetConversationOfUser(reduxUserData.data.id));
   }, [reduxUserData.data.id, dispatch]);
