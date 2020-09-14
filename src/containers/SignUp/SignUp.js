@@ -49,7 +49,11 @@ export default function SignUp() {
 
   useEffect(() => {
     if (reduxUserData.type === ERROR) {
-      reduxUserData.data.message.forEach((mes) => toast.error(mes));
+      if (Array.isArray(reduxUserData.data.message)) {
+        reduxUserData.data.message.forEach((mes) => toast.error(mes));
+      } else {
+        toast.error(reduxUserData.data.message);
+      }
     } else if (reduxUserData.type === SUCCESS) {
       localStorage.setItem("token", reduxUserData.data.token);
       window.location.replace("/");

@@ -1,0 +1,30 @@
+@import "../../../assets/scss/variable.scss";
+
+.menu-profile {
+    position: absolute;
+    background-color: white;
+    width: 180px;
+    border-radius: 5px;
+    box-shadow: $boxShawdow;
+    &__menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    &__list {
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        transition: all 0.4s;
+        cursor: pointer;
+        &:hover {
+            background-color: #efefef;
+            border-radius: 5px;
+        }
+    }
+    &__icon {
+        width: 14px;
+        margin-right: 10px;
+    }
+}

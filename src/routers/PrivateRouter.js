@@ -14,8 +14,10 @@ export default function PrivateRouter({
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(doCheckLogin());
-  }, [dispatch]);
+    if (token) {
+      dispatch(doCheckLogin());
+    }
+  }, [dispatch, token]);
   return (
     <Route
       {...rest}

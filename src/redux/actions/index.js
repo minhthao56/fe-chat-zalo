@@ -1,5 +1,10 @@
-import { SUCCESS, ERROR } from "../constants";
-import { apiSignUp, apiLogin } from "../../services";
+import {
+  SUCCESS,
+  ERROR,
+  SUCCESS_All_USER,
+  GET_CONVERSATION_USER,
+} from "../constants";
+import { apiSignUp, apiLogin, apiUser, apiConversation } from "../../services";
 
 export const doSignUp = (values) => (dispatch) => {
   apiSignUp
@@ -50,4 +55,26 @@ export const doCheckLogin = () => (dispatch) => {
         playload: err.response.data,
       })
     );
+};
+
+export const doGetAllUser = () => (dispatch) => {
+  apiUser.getAllUser().then((res) =>
+    dispatch({
+      type: SUCCESS_All_USER,
+      playload: res,
+    })
+  );
+};
+
+export const doGetConversationOfUser = (id) => (dispatch) => {
+  console.log(id);
+  apiConversation
+    .getConversationOfUser(id)
+    .then((res) =>
+      dispatch({
+        type: GET_CONVERSATION_USER,
+        payload: res,
+      })
+    )
+    .catch((err) => console.log(err));
 };

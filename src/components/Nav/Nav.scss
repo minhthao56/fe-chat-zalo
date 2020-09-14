@@ -11,9 +11,16 @@
         padding: 0;
     }
     &__img {
-        height: 58px;
-        width: 58px;
+        height: 54px;
+        width: 54px;
         border-radius: 50%;
+        border: solid;
+        background-color: white;
+        border: {
+            color: white;
+            width: 2px;
+        }
+        cursor: pointer;
     }
     &__link {
         color: white;
@@ -30,10 +37,12 @@
     &__profile {
         margin-bottom: 30px;
         margin-top: 10px;
+        position: relative;
     }
     &__logout {
         margin-top: auto;
         margin-bottom: 20px;
         color: white;
+        cursor: pointer;
     }
 }
