@@ -7,7 +7,7 @@ export default function Home() {
   useEffect(() => {
     console.log("Home");
     socket = io(ENDPOIN);
-    socket.on("message", (message) => {
+    socket.on("msgToClient", (message) => {
       console.log(message);
     });
   });
