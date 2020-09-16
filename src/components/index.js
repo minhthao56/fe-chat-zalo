@@ -6,3 +6,6 @@ export { default as HeaderBar } from "./HeaderBar/HeaderBar";
 export { default as Nav } from "./Nav/Nav";
 export { default as ListConversation } from "./ListConversation/ListConversation";
 export { default as ListContact } from "./ListContact/ListContact";
+export { default as HeaderRoom } from "./Room/HeaderRoom/HeaderRoom";
+export { default as ContentMessenage } from "./Room/ContentMessenage/ContentMassenage";
+export { default as FormRoom } from "./Room/FormRoom/FormRoom";

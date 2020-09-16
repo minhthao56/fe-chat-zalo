@@ -3,12 +3,13 @@ import "./ListConversation.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
 import { useDispatch, useSelector } from "react-redux";
 import { doGetConversationOfUser } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 export default function ListConversation() {
   const reduxConversation = useSelector((state) => state.reduxConversation);
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(doGetConversationOfUser(reduxUserData.data.id));
   }, [reduxUserData.data.id, dispatch]);
@@ -18,20 +19,30 @@ export default function ListConversation() {
       <HeaderList title="Conversation" />
       {reduxConversation.map((item, i) => {
         return (
-          <div className="conversation__container" key={i}>
-            <div className="conversation__content">
-              <img
-                src={item.user.urlAvatar}
-                alt=""
-                className="conversation__img"
-              />
-              <div className="conversation__main">
-                <h4 className="conversation__name">{item.user.name}</h4>
-                <span className="conversation__mess">Last Messeage</span>
+          <Link to={`/room/${item.id}`} className="conversation__link">
+            <div className="conversation__container" key={i}>
+              <div className="conversation__content">
+                <img
+                  src={
+                    reduxUserData.data.id === item.user.id
+                      ? item.user.urlAvatar
+                      : item.user2.urlAvatar
+                  }
+                  alt=""
+                  className="conversation__img"
+                />
+                <div className="conversation__main">
+                  <h4 className="conversation__name">
+                    {reduxUserData.data.id === item.user.id
+                      ? item.user2.name
+                      : item.user.name}
+                  </h4>
+                  <span className="conversation__mess">Last Messeage</span>
+                </div>
               </div>
+              <span className="conversation__time">Yesterday</span>
             </div>
-            <span className="conversation__time">Yesterday</span>
-          </div>
+          </Link>
         );
       })}
     </div>
