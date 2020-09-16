@@ -10,10 +10,11 @@ export default function Button({
   borderRadius,
   height,
   width,
+  className,
 }) {
   return (
     <button
-      className="btn"
+      className={`btn  ${className}`}
       type={type}
       onClick={onClick}
       style={{

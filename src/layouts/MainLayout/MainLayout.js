@@ -24,7 +24,7 @@ export default function MainLayout({ children }) {
             {pathName === "/contact" ? <ListContact /> : <ListConversation />}
           </div>
         </div>
-        {children}
+        <div className="main-layout__children">{children}</div>
       </div>
     </div>
   );
