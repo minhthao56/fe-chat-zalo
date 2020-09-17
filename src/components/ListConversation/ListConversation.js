@@ -3,6 +3,7 @@ import "./ListConversation.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
 import { useDispatch, useSelector } from "react-redux";
 import { doGetConversationOfUser } from "../../redux/actions";
+import {SUCCESS} from "../../redux/constants"
 import { Link } from "react-router-dom";
 
 export default function ListConversation() {
@@ -11,16 +12,18 @@ export default function ListConversation() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(doGetConversationOfUser(reduxUserData.data.id));
-  }, [reduxUserData.data.id, dispatch]);
+    if (reduxUserData.type === SUCCESS){
+      dispatch(doGetConversationOfUser(reduxUserData.data.id));
+    }
+  }, [reduxUserData.data.id, dispatch,reduxUserData.type,reduxUserData ]);
 
   return (
     <div className="conversation">
       <HeaderList title="Conversation" />
       {reduxConversation.map((item, i) => {
         return (
-          <Link to={`/room/${item.id}`} className="conversation__link">
-            <div className="conversation__container" key={i}>
+          <Link to={`/room/${item.id}`} className="conversation__link" key={i}>
+            <div className="conversation__container" >
               <div className="conversation__content">
                 <img
                   src={

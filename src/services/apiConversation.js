@@ -7,7 +7,10 @@ const apiConversations = {
   },
   getConversationOfUser: (id) => {
     const url = `theater/user/${id}`;
-
+    return axiosClient.get(url);
+  },
+  getAllMessOfConversation: (id) => {
+    const url = `messages/${id}`;
     return axiosClient.get(url);
   },
 };

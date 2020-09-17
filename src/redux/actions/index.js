@@ -3,6 +3,8 @@ import {
   ERROR,
   SUCCESS_All_USER,
   GET_CONVERSATION_USER,
+  GET_CONVERSATION_THEARER,
+  ERROR_CONVERSATION_THEARER
 } from "../constants";
 import { apiSignUp, apiLogin, apiUser, apiConversation } from "../../services";
 
@@ -76,4 +78,18 @@ export const doGetConversationOfUser = (id) => (dispatch) => {
       })
     )
     .catch((err) => console.log(err));
+};
+
+export const doAllMessOfConversation = (id) => (dispatch) => {
+  apiConversation.getAllMessOfConversation(id).then((res) => {
+    dispatch({
+      type: GET_CONVERSATION_THEARER,
+      payload: res,
+    });
+  }).catch(err =>{
+    dispatch({
+      type :ERROR_CONVERSATION_THEARER,
+      playload: err.response.data,
+    })
+  })
 };
