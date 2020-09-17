@@ -27,7 +27,6 @@ export default function Room() {
 
   useEffect(() => {
     socket.on("mess", (mess) => {
-      console.log(mess);
       setMessages([...messenages, mess]);
     });
   }, [messenages]);
@@ -36,7 +35,7 @@ export default function Room() {
     socket.emit("sendMess", {
       userId: reduxUserData.data.id,
       content: values.mes,
-      theaterId: params,
+      theaterId: params.id,
     });
     resetForm();
   };
