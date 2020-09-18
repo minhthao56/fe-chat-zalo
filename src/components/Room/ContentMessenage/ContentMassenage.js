@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "./ContentMessenage.scss";
 import Moment from "react-moment";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 export default function ContentMassenage({ messenages, userId }) {
-  const messagesEndRef = useRef(null);
-  useEffect(() => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [messenages]);
+
   return (
-    <>
+    <ScrollToBottom className="massenage-scroll">
       {messenages.map((mes, i) => {
         return (
           <div
@@ -44,7 +42,6 @@ export default function ContentMassenage({ messenages, userId }) {
           </div>
         );
       })}
-      <div ref={messagesEndRef} />
-    </>
+    </ScrollToBottom>
   );
 }

@@ -43,3 +43,15 @@
         color: #666666;
     }
 }
+.massenage-scroll {
+    overflow: scroll;
+    height: calc(100vh - 150px);
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    scrollbar-color: white white;
+    scrollbar-width: none;
+}
+.react-scroll-to-bottom--css-hgyba-1n7m0yu {
+    scrollbar-width: thin;
+}

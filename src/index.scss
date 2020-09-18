@@ -30,3 +30,15 @@ h6,
 p {
   margin: 0;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bbbbbb;
+  border-radius: 5px;
+  &:hover {
+    background-color: #555555;
+  }
+}

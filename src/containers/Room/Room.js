@@ -11,7 +11,7 @@ export default function Room() {
   const [messenages, setMessages] = useState([]);
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const params = useParams();
-  const ENDPOIN = "http://localhost:3000/";
+  const ENDPOIN = "http://192.168.1.14:3000";
 
   useEffect(() => {
     socket = io(ENDPOIN);
@@ -45,12 +45,12 @@ export default function Room() {
       <div className="room__header">
         <HeaderRoom />
       </div>
-      <div className="room__content">
-        <ContentMessenage
-          messenages={messenages}
-          userId={reduxUserData.data.id}
-        />
-      </div>
+
+      <ContentMessenage
+        messenages={messenages}
+        userId={reduxUserData.data.id}
+      />
+
       <div className="room__form">
         <FormRoom handleSendMess={handleSendMess} />
       </div>
