@@ -1,0 +1,29 @@
+@import "../../../assets/scss/mixin.scss";
+@import "../../../assets/scss/variable.scss";
+
+.header-main {
+  display: flex;
+  align-items: center;
+  border-bottom: solid;
+  background-color: white;
+
+  @include borderColor;
+  height: 82px;
+  width: 100%;
+  padding-left: 10px;
+
+  &__img {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  &__name {
+    margin-bottom: 3px;
+  }
+  &__time {
+    font-weight: 300;
+    font-size: 14px;
+    color: #666666;
+  }
+}

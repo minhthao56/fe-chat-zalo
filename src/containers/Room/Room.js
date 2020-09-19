@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { HeaderRoom, FormRoom, ContentMessenage } from "../../components";
+import { HeaderMain, FormRoom, ContentMessenage } from "../../components";
 import "./Room.scss";
 import io from "socket.io-client";
 import { useSelector } from "react-redux";
@@ -11,7 +11,7 @@ export default function Room() {
   const [messenages, setMessages] = useState([]);
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const params = useParams();
-  const ENDPOIN = "http://192.168.1.14:3000";
+  const ENDPOIN = "http://localhost:3000";
 
   useEffect(() => {
     socket = io(ENDPOIN);
@@ -43,7 +43,7 @@ export default function Room() {
   return (
     <div className="room">
       <div className="room__header">
-        <HeaderRoom />
+        <HeaderMain />
       </div>
 
       <ContentMessenage

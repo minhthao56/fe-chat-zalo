@@ -4,7 +4,6 @@ import Moment from "react-moment";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 export default function ContentMassenage({ messenages, userId }) {
-
   return (
     <ScrollToBottom className="massenage-scroll">
       {messenages.map((mes, i) => {

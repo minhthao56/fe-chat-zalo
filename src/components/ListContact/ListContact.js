@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import "./ListContact.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
-import { doGetAllUser } from "../../redux/actions";
+import { doGetListFriends } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { apiConversation } from "../../services";
+import { SUCCESS } from "../../redux/constants";
 
 export default function ListContact() {
-  const reduxListUser = useSelector((state) => state.reduxListUser);
   const reduxUserData = useSelector((state) => state.reduxUserData);
-  // const reduxConversation = useSelector((state) => state.reduxConversation);
+  const reduxListFriend = useSelector((state) => state.reduxListFriend);
+  const reduxConfirmFriend = useSelector((state) => state.reduxConfirmFriend);
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -24,22 +25,31 @@ export default function ListContact() {
     });
   };
   useEffect(() => {
-    dispatch(doGetAllUser());
-  }, [dispatch]);
+    if (reduxUserData.type === SUCCESS) {
+      dispatch(doGetListFriends(reduxUserData.data.id));
+    }
+  }, [reduxUserData.data.id, dispatch, reduxUserData.type, reduxConfirmFriend]);
+
   return (
     <div className="list-contact">
       <HeaderList title="Your friends" />
-      {reduxListUser.map((item, i) => {
+      {reduxListFriend.map((item, i) => {
         return (
           <div
             className="list-contact__content"
             key={i}
-            onClick={() => handleCreateConversation(item.id)}
+            onClick={() => handleCreateConversation(item.userRequest.id)}
           >
-            <img src={item.urlAvatar} alt="" className="list-contact__img" />
+            <img
+              src={item.userRequest.urlAvatar}
+              alt=""
+              className="list-contact__img"
+            />
             <div className="list-contact__main">
-              <h4 className="list-contact__name">{item.name}</h4>
-              <span className="list-contact__email">{item.email}</span>
+              <p className="list-contact__name">{item.userRequest.name}</p>
+              <span className="list-contact__email">
+                {item.userRequest.email}
+              </span>
             </div>
           </div>
         );

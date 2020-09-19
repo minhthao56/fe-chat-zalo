@@ -5,7 +5,7 @@ const token = localStorage.getItem("token");
 // const URL_BE = process.env.REACT_APP_URL_BE;
 
 const axiosClient = axios.create({
-  baseURL: "http://192.168.1.14:3000",
+  baseURL: "http://localhost:3000",
   headers: {
     "content-type": "application/json",
     token: token,

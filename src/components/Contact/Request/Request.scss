@@ -1,0 +1,74 @@
+@import "../../../assets/scss/variable.scss";
+@import "../../../assets/scss/mixin.scss";
+
+.request {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 20px;
+  border: solid;
+  @include borderColor;
+  border-radius: 3px;
+  margin-bottom: 10px;
+
+  &__main {
+    display: flex;
+    align-items: center;
+  }
+  &__img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  &__action {
+    display: flex;
+    align-items: center;
+  }
+  &__btn {
+    width: 80px;
+    margin-right: 8px;
+    &--chat {
+      background-color: rgba($color: #000000, $alpha: 0);
+      color: $primaryColor;
+      width: initial;
+      font-size: 13px;
+      padding: 0;
+      &:hover {
+        background-color: rgba($color: #000000, $alpha: 0);
+      }
+      height: 18px;
+    }
+    &--skip {
+      background-color: rgba($color: #000000, $alpha: 0);
+      font-size: 14px;
+      color: #888888;
+      font-weight: 700;
+      &:hover {
+        background-color: rgba($color: #000000, $alpha: 0);
+        color: #555555;
+      }
+    }
+    &--confirm {
+      border: solid;
+      border-width: 1px;
+      background-color: rgba($color: #000000, $alpha: 0);
+      color: $primaryColor;
+      font-size: 14px;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+  &__text {
+    color: #888888;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  &__name {
+    margin-bottom: 3px;
+    font-size: 15px;
+    color: #444444;
+  }
+}
