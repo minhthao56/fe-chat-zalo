@@ -11,3 +11,5 @@ export { default as ContentMessenage } from "./Room/ContentMessenage/ContentMass
 export { default as FormRoom } from "./Room/FormRoom/FormRoom";
 export { default as ListRequest } from "./Contact/ListRequest/ListRequest";
 export { default as HeaderList } from "./Common/HeaderList/HeaderList";
+export { default as Empty } from "./Common/Empty/Empty";
+export { default as ModalAddFriend } from "./Modal/ModalAddFriend/ModalAddFriend";

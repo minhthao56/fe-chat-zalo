@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import "./ListContact.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
-import { doGetListFriends } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { apiConversation } from "../../services";
-import { SUCCESS } from "../../redux/constants";
 
 export default function ListContact() {
-  const reduxUserData = useSelector((state) => state.reduxUserData);
   const reduxListFriend = useSelector((state) => state.reduxListFriend);
-  const reduxConfirmFriend = useSelector((state) => state.reduxConfirmFriend);
-  const dispatch = useDispatch();
+  const reduxUserData = useSelector((state) => state.reduxUserData);
 
   const history = useHistory();
 
@@ -24,11 +21,6 @@ export default function ListContact() {
       history.push("/");
     });
   };
-  useEffect(() => {
-    if (reduxUserData.type === SUCCESS) {
-      dispatch(doGetListFriends(reduxUserData.data.id));
-    }
-  }, [reduxUserData.data.id, dispatch, reduxUserData.type, reduxConfirmFriend]);
 
   return (
     <div className="list-contact">

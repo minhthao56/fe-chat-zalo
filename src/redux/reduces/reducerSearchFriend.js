@@ -1,12 +1,12 @@
-import { GET_MESSENAGE_THEARER } from "../constants";
+import { RESUTL_SEARCH } from "../constants";
 
 const initialState = [];
 
 const myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_MESSENAGE_THEARER:
-      const payload = action.payload;
-      return payload;
+    case RESUTL_SEARCH:
+      const friends = action.payload;
+      return friends;
     default:
       return state;
   }

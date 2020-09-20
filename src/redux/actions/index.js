@@ -1,21 +1,25 @@
 import {
   SUCCESS,
   ERROR,
-  SUCCESS_All_USER,
   GET_CONVERSATION_USER,
-  GET_CONVERSATION_THEARER,
-  ERROR_CONVERSATION_THEARER,
+  GET_MESSENAGE_THEARER,
+  ERROR_MESSENAGE_THEARER,
   CONFRIM_FRIEND,
   LIST_FRIEND,
+  RESUTL_SEARCH,
+  SHOW_ADD_FRIEND,
+  LOSE_ADD_FRIEND,
+  SHOW_BLUR,
+  LOSE_BLUR,
 } from "../constants";
 import {
   apiSignUp,
   apiLogin,
-  apiUser,
   apiConversation,
   apiFriends,
 } from "../../services";
 
+// User
 export const doSignUp = (values) => (dispatch) => {
   apiSignUp
     .postSignUp(values)
@@ -67,15 +71,16 @@ export const doCheckLogin = () => (dispatch) => {
     );
 };
 
-export const doGetAllUser = () => (dispatch) => {
-  apiUser.getAllUser().then((res) =>
-    dispatch({
-      type: SUCCESS_All_USER,
-      playload: res,
-    })
-  );
-};
+// export const doGetAllUser = () => (dispatch) => {
+//   apiUser.getAllUser().then((res) =>
+//     dispatch({
+//       type: SUCCESS_All_USER,
+//       playload: res,
+//     })
+//   );
+// };
 
+// Conversation
 export const doGetConversationOfUser = (id) => (dispatch) => {
   apiConversation
     .getConversationOfUser(id)
@@ -93,18 +98,19 @@ export const doAllMessOfConversation = (id) => (dispatch) => {
     .getAllMessOfConversation(id)
     .then((res) => {
       dispatch({
-        type: GET_CONVERSATION_THEARER,
+        type: GET_MESSENAGE_THEARER,
         payload: res,
       });
     })
     .catch((err) => {
       dispatch({
-        type: ERROR_CONVERSATION_THEARER,
+        type: ERROR_MESSENAGE_THEARER,
         playload: err.response.data,
       });
     });
 };
 
+// Friend
 export const doConfirmRequestFriend = (id) => (dispatch) => {
   apiFriends
     .updateStatusOfRequest(id)
@@ -128,3 +134,29 @@ export const doGetListFriends = (id) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const doSearchFriend = (q) => (dispatch) => {
+  apiFriends
+    .searchFriends(q)
+    .then((res) =>
+      dispatch({
+        type: RESUTL_SEARCH,
+        payload: res,
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+export const doShowModalAddFriend = () => ({
+  type: SHOW_ADD_FRIEND,
+});
+export const doLoseModalAddFriend = () => ({
+  type: LOSE_ADD_FRIEND,
+});
+
+export const doShowBlur = () => ({
+  type: SHOW_BLUR,
+});
+export const doLoseBlur = () => ({
+  type: LOSE_BLUR,
+});

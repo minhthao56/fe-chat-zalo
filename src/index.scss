@@ -8,11 +8,11 @@ button {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-input {
+input,
+textarea {
   font-family: "Roboto", sans-serif;
   &:focus {
     outline: none;

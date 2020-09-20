@@ -1,11 +1,18 @@
 import React from "react";
+import "./App.scss";
 
 import Routers from "./routers";
+import { Modals } from "./containers";
 
 export default function App() {
   return (
     <div>
-      <Routers />
+      <div>
+        <Modals />
+      </div>
+      <div id="app-blur">
+        <Routers />
+      </div>
     </div>
   );
 }
