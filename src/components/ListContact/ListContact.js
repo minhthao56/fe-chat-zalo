@@ -24,23 +24,39 @@ export default function ListContact() {
 
   return (
     <div className="list-contact">
-      <HeaderList title="Your friends" />
+      <HeaderList title={` Your friends (${reduxListFriend.length})`} />
       {reduxListFriend.map((item, i) => {
         return (
           <div
             className="list-contact__content"
             key={i}
-            onClick={() => handleCreateConversation(item.userRequest.id)}
+            onClick={() =>
+              handleCreateConversation(
+                reduxUserData.data.id === item.userRequest.id
+                  ? item.user.id
+                  : item.userRequest.id
+              )
+            }
           >
             <img
-              src={item.userRequest.urlAvatar}
+              src={
+                reduxUserData.data.id === item.userRequest.id
+                  ? item.user.urlAvatar
+                  : item.userRequest.urlAvatar
+              }
               alt=""
               className="list-contact__img"
             />
             <div className="list-contact__main">
-              <p className="list-contact__name">{item.userRequest.name}</p>
+              <p className="list-contact__name">
+                {reduxUserData.data.id === item.userRequest.id
+                  ? item.user.name
+                  : item.userRequest.name}
+              </p>
               <span className="list-contact__email">
-                {item.userRequest.email}
+                {reduxUserData.data.id === item.userRequest.id
+                  ? item.user.email
+                  : item.userRequest.email}
               </span>
             </div>
           </div>

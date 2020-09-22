@@ -5,7 +5,11 @@ import { Search } from "react-feather";
 import "./HeaderBar.scss";
 
 import ResultSearch from "./ResultSearch/ResultSearch";
-import { doSearchFriend } from "../../redux/actions";
+import {
+  doSearchFriend,
+  doShowModalAddFriend,
+  doShowBlur,
+} from "../../redux/actions";
 import { FilterYourFriendInSearch } from "../../helpers/FilterYourFriendInSearch";
 
 export default function HeaderBar() {
@@ -32,7 +36,8 @@ export default function HeaderBar() {
   };
 
   const handleAddFriend = (id) => {
-    console.log(id);
+    dispatch(doShowModalAddFriend(id));
+    dispatch(doShowBlur());
   };
 
   useEffect(() => {

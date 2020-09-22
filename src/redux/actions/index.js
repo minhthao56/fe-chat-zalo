@@ -147,8 +147,9 @@ export const doSearchFriend = (q) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const doShowModalAddFriend = () => ({
+export const doShowModalAddFriend = (id) => ({
   type: SHOW_ADD_FRIEND,
+  payload: id,
 });
 export const doLoseModalAddFriend = () => ({
   type: LOSE_ADD_FRIEND,

@@ -1,13 +1,20 @@
 import { SHOW_ADD_FRIEND, LOSE_ADD_FRIEND } from "../constants";
 
-const initialState = false;
+const initialState = {
+  status: false,
+  id: "",
+};
 
 const myReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_ADD_FRIEND:
-      return true;
+      const id = action.payload;
+      return { status: true, id: id };
     case LOSE_ADD_FRIEND:
-      return false;
+      return {
+        status: false,
+        id: "",
+      };
     default:
       return state;
   }
