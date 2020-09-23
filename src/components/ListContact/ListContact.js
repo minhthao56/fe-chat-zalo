@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import "./ListContact.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
+import Avatar from "../Common/Avatar/Avatar";
 import { apiConversation } from "../../services";
 
 export default function ListContact() {
@@ -38,8 +39,8 @@ export default function ListContact() {
               )
             }
           >
-            <img
-              src={
+            <Avatar
+              backgroundImage={
                 reduxUserData.data.id === item.userRequest.id
                   ? item.user.urlAvatar
                   : item.userRequest.urlAvatar

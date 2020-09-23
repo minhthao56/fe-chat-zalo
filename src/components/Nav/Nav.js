@@ -4,6 +4,7 @@ import "./Nav.scss";
 import { MessageCircle, Book, LogOut } from "react-feather";
 import { useSelector } from "react-redux";
 import MenuProfile from "./MenuProfile/MenuProfile";
+import Avatar from "../Common/Avatar/Avatar";
 import HelperLogOut from "../../helpers/Logout";
 // import moment from "moment";
 
@@ -12,23 +13,16 @@ export default function Nav() {
   const pathName = location.pathname;
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const { data } = reduxUserData;
-  // const time = moment(new Date(data.exp * 1000)).format(
-  //   "MMMM Do YYYY, h:mm:ss a"
-  // );
-  // console.log(time);
+
   const [isShowMenuProfile, setIsShowMenuProfile] = useState(false);
   const hanldeShowMenuProfile = () => {
     setIsShowMenuProfile(!isShowMenuProfile);
   };
   return (
     <nav className="nav">
-      <div className="nav__profile">
-        <img
-          src={data.urlAvatar}
-          alt=""
-          className="nav__img"
-          onClick={hanldeShowMenuProfile}
-        />
+      <div className="nav__profile" onClick={hanldeShowMenuProfile}>
+        <Avatar backgroundImage={data.urlAvatar} className="nav__avatar" />
+
         {isShowMenuProfile && <MenuProfile />}
       </div>
       <ul className="nav__ul">

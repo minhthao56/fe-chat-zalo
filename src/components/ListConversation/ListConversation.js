@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./ListConversation.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
+import Avatar from "../Common/Avatar/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { doGetConversationOfUser } from "../../redux/actions";
 import { SUCCESS } from "../../redux/constants";
@@ -25,13 +26,12 @@ export default function ListConversation() {
           <Link to={`/room/${item.id}`} className="conversation__link" key={i}>
             <div className="conversation__container">
               <div className="conversation__content">
-                <img
-                  src={
+                <Avatar
+                  backgroundImage={
                     reduxUserData.data.id === item.user.id
-                      ? item.user.urlAvatar
-                      : item.user2.urlAvatar
+                      ? item.user2.urlAvatar
+                      : item.user.urlAvatar
                   }
-                  alt=""
                   className="conversation__img"
                 />
                 <div className="conversation__main">

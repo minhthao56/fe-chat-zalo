@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { X } from "react-feather";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./ModalAddFriend.scss";
-import { Button } from "../../index";
+import { Button, Avatar } from "../../index";
 import { doLoseBlur, doLoseModalAddFriend } from "../../../redux/actions";
-import { apiUser } from "../../../services";
+import { apiUser, apiFriends } from "../../../services";
 
 export default function ModalAddFriend({ id }) {
   const [dataUserWannaAddFriend, setDataUserWannaAddFriend] = useState({});
+  const [contentAddFriend, setContentAddFriend] = useState("");
+  const reduxUserData = useSelector((state) => state.reduxUserData);
   const dispatch = useDispatch();
   const handleLoseModalAddFriend = () => {
     dispatch(doLoseModalAddFriend());
     dispatch(doLoseBlur());
+  };
+
+  const handleSendReqAddFriend = (e) => {
+    e.preventDefault();
+    const dataAddFriend = {
+      userId: reduxUserData.data.id,
+      userIdRequest: id,
+      content: contentAddFriend,
+    };
+    apiFriends.postAddFriend(dataAddFriend);
   };
 
   useEffect(() => {
@@ -31,21 +43,24 @@ export default function ModalAddFriend({ id }) {
         </div>
         <div className="add-friend__main">
           <div className="add-friend__info">
-            <img
-              src="https://picsum.photos/200"
-              alt=""
+            <Avatar
+              backgroundImage={dataUserWannaAddFriend.urlAvatar}
               className="add-friend__img"
             />
 
             <p className="add-friend__name">{dataUserWannaAddFriend.name}</p>
             <p className="add-friend__email">{dataUserWannaAddFriend.email}</p>
           </div>
-          <form className="add-friend__form">
+          <form className="add-friend__form" onSubmit={handleSendReqAddFriend}>
             <textarea
               className="add-friend__textarea"
               placeholder="Your messenger..."
+              value={contentAddFriend}
+              onChange={(e) => setContentAddFriend(e.target.value)}
             />
-            <Button className="add-friend__btn">Add friend</Button>
+            <Button className="add-friend__btn" type="submit">
+              Add friend
+            </Button>
           </form>
         </div>
       </div>

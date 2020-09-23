@@ -1,12 +1,19 @@
 import React from "react";
 import "./Request.scss";
-import { Button } from "../../index";
+import { Button, Avatar } from "../../index";
 
-export default function Request({ name, content, status, handleConfirm, id }) {
+export default function Request({
+  name,
+  content,
+  status,
+  handleConfirm,
+  id,
+  urlAvatar,
+}) {
   return (
     <div className="request">
       <div className="request__main">
-        <img src="https://picsum.photos/200" alt="" className="request__img" />
+        <Avatar backgroundImage={urlAvatar} className="request__img" />
         <div className="request__content">
           <p className="request__name">{name}</p>
           <p className="request__text">{content}</p>
