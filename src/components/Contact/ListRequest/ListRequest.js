@@ -16,7 +16,7 @@ export default function ListRequest({ handleConfirm, dataRequestFriend }) {
             key={i}
             handleConfirm={handleConfirm}
             id={req.id}
-            urlAvatar={req.urlAvatar}
+            urlAvatar={req.userRequest.urlAvatar}
           />
         );
       })}

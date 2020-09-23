@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { X } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import "./ModalAddFriend.scss";
 import { Button, Avatar } from "../../index";
@@ -20,11 +21,21 @@ export default function ModalAddFriend({ id }) {
   const handleSendReqAddFriend = (e) => {
     e.preventDefault();
     const dataAddFriend = {
-      userId: reduxUserData.data.id,
-      userIdRequest: id,
+      userId: id,
+      userIdRequest: reduxUserData.data.id,
       content: contentAddFriend,
     };
-    apiFriends.postAddFriend(dataAddFriend);
+    apiFriends
+      .postAddFriend(dataAddFriend)
+      .then((res) => {
+        dispatch(doLoseModalAddFriend());
+        dispatch(doLoseBlur());
+        console.log(res);
+        toast.success(
+          `Bạn đã gửi yều cầu kết bạn đến ${dataUserWannaAddFriend.name} thành công`
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
