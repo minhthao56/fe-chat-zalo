@@ -14,3 +14,4 @@ export { default as HeaderList } from "./Common/HeaderList/HeaderList";
 export { default as Empty } from "./Common/Empty/Empty";
 export { default as ModalAddFriend } from "./Modal/ModalAddFriend/ModalAddFriend";
 export { default as Avatar } from "./Common/Avatar/Avatar";
+export { default as ListSendRequest } from "./Contact/ListSendRequest/ListSendRequest";

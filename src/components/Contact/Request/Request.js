@@ -9,6 +9,8 @@ export default function Request({
   handleConfirm,
   id,
   urlAvatar,
+  type,
+  email,
 }) {
   return (
     <div className="request">
@@ -17,19 +19,27 @@ export default function Request({
         <div className="request__content">
           <p className="request__name">{name}</p>
           <p className="request__text">{content}</p>
+          <p className="request__text">{email}</p>
           <Button type="button" className="request__btn request__btn--chat">
             Chat
           </Button>
         </div>
       </div>
+
       <div className="request__action">
-        <Button className="request__btn request__btn--skip">Skip</Button>
-        <Button
-          className="request__btn request__btn--confirm"
-          onClick={() => handleConfirm(id)}
-        >
-          Confirm
-        </Button>
+        {type === 2 ? (
+          <p>Watting confirm </p>
+        ) : (
+          <>
+            <Button className="request__btn request__btn--skip">Skip</Button>
+            <Button
+              className="request__btn request__btn--confirm"
+              onClick={() => handleConfirm(id)}
+            >
+              Confirm
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

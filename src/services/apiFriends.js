@@ -15,12 +15,19 @@ const apiFriends = {
   },
   searchFriends: (params) => {
     const url = "users/find";
-
     return axiosClient.get(url, { params });
   },
   postAddFriend: (data) => {
     const url = "friends";
     return axiosClient.post(url, data);
+  },
+  getListUserSendRequest: (id) => {
+    const url = `friends/sendrequest/${id}`;
+    return axiosClient.get(url);
+  },
+  getFriendIncludeAll: (id) => {
+    const url = `friend/${id}`;
+    return axiosClient.get(url);
   },
 };
 export default apiFriends;

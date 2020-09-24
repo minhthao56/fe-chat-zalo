@@ -1,6 +1,6 @@
 import React from "react";
 import "./ListRequest.scss";
-import { HeaderList } from "../../index";
+import { HeaderList, Empty } from "../../index";
 import Request from "../Request/Request";
 
 export default function ListRequest({ handleConfirm, dataRequestFriend }) {
@@ -20,6 +20,9 @@ export default function ListRequest({ handleConfirm, dataRequestFriend }) {
           />
         );
       })}
+      {dataRequestFriend.length === 0 ? (
+        <Empty title="No request add friend" />
+      ) : null}
     </div>
   );
 }
