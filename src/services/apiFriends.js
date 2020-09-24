@@ -26,7 +26,7 @@ const apiFriends = {
     return axiosClient.get(url);
   },
   getFriendIncludeAll: (id) => {
-    const url = `friend/${id}`;
+    const url = `friends/${id}`;
     return axiosClient.get(url);
   },
 };

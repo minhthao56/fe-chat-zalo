@@ -10,7 +10,9 @@ import {
   doShowModalAddFriend,
   doShowBlur,
 } from "../../redux/actions";
+import { SUCCESS } from "../../redux/constants";
 import { FilterYourFriendInSearch } from "../../helpers/FilterYourFriendInSearch";
+import { apiFriends } from "../../services";
 
 export default function HeaderBar() {
   const reduxUserData = useSelector((state) => state.reduxUserData);
@@ -20,6 +22,7 @@ export default function HeaderBar() {
   const [isShowReultSearch, setIsShowReultSearch] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const [dataSearchFilter, setDataSearchFilter] = useState([]);
+  const [dataFriendIncludeAll, setDataFriendIncludeAll] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -44,10 +47,19 @@ export default function HeaderBar() {
     const dataFilter = FilterYourFriendInSearch(
       reduxSearchFriend,
       reduxListFriend,
-      reduxUserData.data.id
+      reduxUserData.data.id,
+      dataFriendIncludeAll
     );
-
     setDataSearchFilter(dataFilter);
+    if (reduxUserData.type === SUCCESS) {
+      apiFriends
+        .getListUserSendRequest(reduxUserData.data.id)
+        .then((res) => {
+          console.log(res);
+          setDataFriendIncludeAll(res);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [reduxListFriend, reduxSearchFriend, reduxUserData]);
 
   return (

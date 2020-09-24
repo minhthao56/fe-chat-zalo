@@ -1,4 +1,9 @@
-export const FilterYourFriendInSearch = (resultSearch, listFriends, userId) => {
+export const FilterYourFriendInSearch = (
+  resultSearch,
+  listFriends,
+  userId,
+  listFriendInclueAll
+) => {
   const arrUser = [];
   if (listFriends.length) {
     for (const userSearch of resultSearch) {
