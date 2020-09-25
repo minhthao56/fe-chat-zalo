@@ -9,20 +9,27 @@ import {
   doSearchFriend,
   doShowModalAddFriend,
   doShowBlur,
+  doListRequestAddFriend,
+  doListSendRequestAddFriend,
 } from "../../redux/actions";
 import { SUCCESS } from "../../redux/constants";
 import { FilterYourFriendInSearch } from "../../helpers/FilterYourFriendInSearch";
-import { apiFriends } from "../../services";
 
 export default function HeaderBar() {
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const reduxSearchFriend = useSelector((state) => state.reduxSearchFriend);
   const reduxListFriend = useSelector((state) => state.reduxListFriend);
+  const reduxConfirmFriend = useSelector((state) => state.reduxConfirmFriend);
+  const reduxListSendReqAddFriend = useSelector(
+    (state) => state.reduxListSendReqAddFriend
+  );
+  const reduxRequestAddFriend = useSelector(
+    (state) => state.reduxRequestAddFriend
+  );
 
   const [isShowReultSearch, setIsShowReultSearch] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const [dataSearchFilter, setDataSearchFilter] = useState([]);
-  const [dataFriendIncludeAll, setDataFriendIncludeAll] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -44,23 +51,29 @@ export default function HeaderBar() {
   };
 
   useEffect(() => {
-    const dataFilter = FilterYourFriendInSearch(
-      reduxSearchFriend,
-      reduxListFriend,
-      reduxUserData.data.id,
-      dataFriendIncludeAll
-    );
-    setDataSearchFilter(dataFilter);
-    if (reduxUserData.type === SUCCESS) {
-      apiFriends
-        .getListUserSendRequest(reduxUserData.data.id)
-        .then((res) => {
-          console.log(res);
-          setDataFriendIncludeAll(res);
-        })
-        .catch((err) => console.log(err));
+    if (reduxSearchFriend.length) {
+      const dataFilter = FilterYourFriendInSearch(
+        reduxSearchFriend,
+        reduxListFriend,
+        reduxUserData.data.id,
+        reduxRequestAddFriend,
+        reduxListSendReqAddFriend
+      );
+      setDataSearchFilter(dataFilter);
+      console.log(dataFilter);
     }
-  }, [reduxListFriend, reduxSearchFriend, reduxUserData]);
+
+    if (reduxUserData.type === SUCCESS) {
+      dispatch(doListRequestAddFriend(reduxUserData.data.id));
+      dispatch(doListSendRequestAddFriend(reduxUserData.data.id));
+    }
+  }, [
+    reduxListFriend,
+    reduxSearchFriend,
+    reduxUserData,
+    reduxConfirmFriend,
+    dispatch,
+  ]);
 
   return (
     <div className="header-bar">

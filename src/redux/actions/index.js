@@ -11,6 +11,8 @@ import {
   LOSE_ADD_FRIEND,
   SHOW_BLUR,
   LOSE_BLUR,
+  LIST_REQEST_ADD_FRIEND,
+  LIST_SEND_RESQEST_ADD_FRIEND,
 } from "../constants";
 import {
   apiSignUp,
@@ -161,3 +163,27 @@ export const doShowBlur = () => ({
 export const doLoseBlur = () => ({
   type: LOSE_BLUR,
 });
+
+export const doListRequestAddFriend = (id) => (dispatch) => {
+  apiFriends
+    .getsRequetsAddFriend(id)
+    .then((res) =>
+      dispatch({
+        type: LIST_REQEST_ADD_FRIEND,
+        payload: res,
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+export const doListSendRequestAddFriend = (id) => (dispatch) => {
+  apiFriends
+    .getListUserSendRequest(id)
+    .then((res) =>
+      dispatch({
+        type: LIST_SEND_RESQEST_ADD_FRIEND,
+        payload: res,
+      })
+    )
+    .catch((err) => console.log(err));
+};
