@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalAddFriend } from "../../components";
+import { ModalAddFriend, ModalProfile } from "../../components";
 import { useSelector } from "react-redux";
 
 export default function Modals() {
@@ -11,6 +11,7 @@ export default function Modals() {
       {reduxShowModalAddFriend.status && (
         <ModalAddFriend id={reduxShowModalAddFriend.id} />
       )}
+      {<ModalProfile />}
     </div>
   );
 }

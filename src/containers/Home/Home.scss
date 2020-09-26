@@ -1,0 +1,10 @@
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  &__title {
+    margin-bottom: 20px;
+  }
+}

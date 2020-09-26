@@ -1,18 +1,17 @@
 export const FilterYourFriendInSearch = (
   resultSearch,
-  listFriends,
+  fullListFriends,
   userId,
-  listReqFriend,
-  listSendReqFriend
+  listFriend
 ) => {
   const arrUser = [];
-  // filter friend
-  if (listFriends.length) {
+
+  if (listFriend.length) {
     for (const userSearch of resultSearch) {
-      for (const userFriend of listFriends) {
+      for (const userFriend of listFriend) {
         if (
-          userSearch.id === userFriend.userIdRequest ||
-          userSearch.id === userFriend.userId
+          userSearch.id === userFriend.userId ||
+          userSearch.id === userFriend.userIdRequest
         ) {
           const type = { type: 1 };
           const Obj = Object.assign(userSearch, type);
@@ -25,55 +24,39 @@ export const FilterYourFriendInSearch = (
       }
     }
   }
-  // //filter req
-  // if (arrUser.length) {
-  //   for (const user of arrUser) {
-  //     for (const reqFriend of listReqFriend) {
-  //       if (user.id === reqFriend.userIdRequest) {
-  //         const type = { type: 3 };
-  //         const Obj = Object.assign(user, type);
-  //         arrUser.push(Obj);
-  //       }
-  //     }
-  //   }
-  // } else {
-  //   for (const user of resultSearch) {
-  //     for (const reqFriend of listReqFriend) {
-  //       if (user.id === reqFriend.userIdRequest) {
-  //         const type = { type: 3 };
-  //         const Obj = Object.assign(user, type);
-  //         arrUser.push(Obj);
-  //       }
-  //     }
-  //   }
-  // }
+  const arrUser2 = [];
+  if (fullListFriends.length) {
+    for (const userSearch of resultSearch) {
+      for (const userFriend of fullListFriends) {
+        if (userSearch.id === userFriend.userId && userFriend.status === "1") {
+          const type = { type: 3 };
+          const Obj = Object.assign(userSearch, type);
+          arrUser2.push(Obj);
+        } else if (
+          userSearch.id === userFriend.userIdRequest &&
+          userFriend.status === "1"
+        ) {
+          const type = { type: 4 };
+          const Obj = Object.assign(userSearch, type);
+          arrUser2.push(Obj);
+        }
+      }
+    }
+  }
 
-  // // list send req
-  // if (arrUser.length) {
-  //   for (const user of arrUser) {
-  //     for (const reqFriend of listSendReqFriend) {
-  //       if (user.id === reqFriend.userId) {
-  //         const type = { type: 4 };
-  //         const Obj = Object.assign(user, type);
-  //         arrUser.push(Obj);
-  //       }
-  //     }
-  //   }
-  // } else {
-  //   for (const user of resultSearch) {
-  //     for (const reqFriend of listSendReqFriend) {
-  //       if (user.id === reqFriend.userId) {
-  //         const type = { type: 4 };
-  //         const Obj = Object.assign(user, type);
-  //         arrUser.push(Obj);
-  //       }
-  //     }
-  //   }
-  // }
+  const concatarrUser = arrUser.concat(arrUser2);
+  const filterarrUser = concatarrUser.reduce((acc, current) => {
+    const x = acc.find((item) => item.id === current.id);
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
 
   // filter user
-  if (arrUser.length) {
-    const filterUserCurrent = arrUser.filter((user) => {
+  if (filterarrUser.length) {
+    const filterUserCurrent = filterarrUser.filter((user) => {
       if (user.id === userId) {
         return false;
       } else {

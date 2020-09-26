@@ -44,6 +44,10 @@
         color: #cccccc;
         font-weight: 300;
     }
+    &__action {
+        display: flex;
+        align-items: center;
+    }
     &__btn {
         border: solid;
         color: $primaryColor;
@@ -54,9 +58,21 @@
         font-size: 11px;
         height: 20px;
         text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &:hover {
             background-color: $primaryColor;
             color: white;
+        }
+        &--skip {
+            border: none;
+            color: #888888;
+            margin-right: 5px;
+            &:hover {
+                background-color: rgba($color: #000000, $alpha: 0);
+                color: #888888;
+            }
         }
     }
     &__container {

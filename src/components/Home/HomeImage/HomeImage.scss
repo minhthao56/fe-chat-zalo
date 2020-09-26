@@ -1,0 +1,25 @@
+.home-img {
+  max-width: 500px;
+  &__img {
+    width: 100%;
+  }
+  &__note {
+    text-align: center;
+  }
+  &__title {
+    color: #0068ff;
+    font-size: 19px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  &__content {
+    font-size: 14px;
+    color: #343434;
+    font-weight: 400;
+  }
+}
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: 0;
+}

@@ -3,33 +3,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { Search } from "react-feather";
 
 import "./HeaderBar.scss";
-
 import ResultSearch from "./ResultSearch/ResultSearch";
+
 import {
   doSearchFriend,
   doShowModalAddFriend,
   doShowBlur,
-  doListRequestAddFriend,
-  doListSendRequestAddFriend,
 } from "../../redux/actions";
 import { SUCCESS } from "../../redux/constants";
 import { FilterYourFriendInSearch } from "../../helpers/FilterYourFriendInSearch";
+import { apiFriends } from "../../services";
 
 export default function HeaderBar() {
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const reduxSearchFriend = useSelector((state) => state.reduxSearchFriend);
   const reduxListFriend = useSelector((state) => state.reduxListFriend);
-  const reduxConfirmFriend = useSelector((state) => state.reduxConfirmFriend);
-  const reduxListSendReqAddFriend = useSelector(
-    (state) => state.reduxListSendReqAddFriend
-  );
-  const reduxRequestAddFriend = useSelector(
-    (state) => state.reduxRequestAddFriend
-  );
 
   const [isShowReultSearch, setIsShowReultSearch] = useState(false);
   const [valueSearch, setValueSearch] = useState("");
   const [dataSearchFilter, setDataSearchFilter] = useState([]);
+  const [fullListFriendIncluce, setFullListFriendIncluce] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -51,29 +44,21 @@ export default function HeaderBar() {
   };
 
   useEffect(() => {
-    if (reduxSearchFriend.length) {
-      const dataFilter = FilterYourFriendInSearch(
-        reduxSearchFriend,
-        reduxListFriend,
-        reduxUserData.data.id,
-        reduxRequestAddFriend,
-        reduxListSendReqAddFriend
-      );
-      setDataSearchFilter(dataFilter);
-      console.log(dataFilter);
-    }
-
     if (reduxUserData.type === SUCCESS) {
-      dispatch(doListRequestAddFriend(reduxUserData.data.id));
-      dispatch(doListSendRequestAddFriend(reduxUserData.data.id));
+      apiFriends
+        .getFriendIncludeAll(reduxUserData.data.id)
+        .then((res) => setFullListFriendIncluce(res))
+        .catch((err) => console.log(err));
     }
-  }, [
-    reduxListFriend,
-    reduxSearchFriend,
-    reduxUserData,
-    reduxConfirmFriend,
-    dispatch,
-  ]);
+    const dataFilter = FilterYourFriendInSearch(
+      reduxSearchFriend,
+      fullListFriendIncluce,
+      reduxUserData.data.id,
+      reduxListFriend
+    );
+
+    setDataSearchFilter(dataFilter);
+  }, [reduxSearchFriend, reduxUserData]);
 
   return (
     <div className="header-bar">

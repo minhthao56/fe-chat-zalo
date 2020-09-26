@@ -8,7 +8,8 @@ button {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 input,
@@ -45,4 +46,7 @@ p {
   &:hover {
     background-color: #555555;
   }
+}
+* {
+  box-sizing: border-box;
 }
