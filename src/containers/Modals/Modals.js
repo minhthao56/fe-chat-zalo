@@ -6,12 +6,15 @@ export default function Modals() {
   const reduxShowModalAddFriend = useSelector(
     (state) => state.reduxShowModalAddFriend
   );
+  const reduxModalUpdateInfo = useSelector(
+    (state) => state.reduxModalUpdateInfo
+  );
   return (
     <div>
       {reduxShowModalAddFriend.status && (
         <ModalAddFriend id={reduxShowModalAddFriend.id} />
       )}
-      {<ModalProfile />}
+      {reduxModalUpdateInfo && <ModalProfile />}
     </div>
   );
 }

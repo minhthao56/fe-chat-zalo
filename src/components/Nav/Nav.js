@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./Nav.scss";
 import { MessageCircle, Book, LogOut } from "react-feather";
 import { useSelector } from "react-redux";
+
+import "./Nav.scss";
+
 import MenuProfile from "./MenuProfile/MenuProfile";
 import Avatar from "../Common/Avatar/Avatar";
 import HelperLogOut from "../../helpers/Logout";
-// import moment from "moment";
 
 export default function Nav() {
   const location = useLocation();
@@ -23,7 +24,9 @@ export default function Nav() {
       <div className="nav__profile" onClick={hanldeShowMenuProfile}>
         <Avatar backgroundImage={data.urlAvatar} className="nav__avatar" />
 
-        {isShowMenuProfile && <MenuProfile />}
+        {isShowMenuProfile && (
+          <MenuProfile setIsShowMenuProfile={setIsShowMenuProfile} />
+        )}
       </div>
       <ul className="nav__ul">
         <Link to="/" className="nav__link">

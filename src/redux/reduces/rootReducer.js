@@ -9,6 +9,7 @@ import reduxShowModalAddFriend from "./reducerShowModalAddFriend";
 import reduxShowBlur from "./reducerShowBlur";
 import reduxListSendReqAddFriend from "./reduceListSendReqAddFriend";
 import reduxRequestAddFriend from "./reduceRequestAddFriend";
+import reduxModalUpdateInfo from "./reducerModalUpdateInfo";
 
 const rootReducer = combineReducers({
   reduxUserData: reduxUserData,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   reduxShowBlur: reduxShowBlur,
   reduxListSendReqAddFriend: reduxListSendReqAddFriend,
   reduxRequestAddFriend: reduxRequestAddFriend,
+  reduxModalUpdateInfo: reduxModalUpdateInfo,
 });
 
 export default rootReducer;

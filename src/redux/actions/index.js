@@ -13,12 +13,15 @@ import {
   LOSE_BLUR,
   LIST_REQEST_ADD_FRIEND,
   LIST_SEND_RESQEST_ADD_FRIEND,
+  SHOW_UPDATE_INFO,
+  LOSE_UPDATE_INFO,
 } from "../constants";
 import {
   apiSignUp,
   apiLogin,
   apiConversation,
   apiFriends,
+  apiUser,
 } from "../../services";
 
 // User
@@ -186,4 +189,61 @@ export const doListSendRequestAddFriend = (id) => (dispatch) => {
       })
     )
     .catch((err) => console.log(err));
+};
+
+export const doShowUpdateInfo = () => ({
+  type: SHOW_UPDATE_INFO,
+});
+export const doLoseUpdateInfo = () => ({
+  type: LOSE_UPDATE_INFO,
+});
+
+export const doUpdateInfoUser = (id, data) => (dispatch) => {
+  apiUser
+    .updateUser(id, data)
+    .then((res) =>
+      dispatch({
+        type: SUCCESS,
+        playload: res,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: ERROR,
+        playload: err.response.data,
+      })
+    );
+};
+
+export const doUpdateAvata = (id, data) => (dispatch) => {
+  apiUser
+    .updateIamgeAvatar(id, data)
+    .then((res) =>
+      dispatch({
+        type: SUCCESS,
+        playload: res,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: ERROR,
+        playload: err.response.data,
+      })
+    );
+};
+export const doUpdateBanner = (id, data) => (dispatch) => {
+  apiUser
+    .updateImageBanner(id, data)
+    .then((res) =>
+      dispatch({
+        type: SUCCESS,
+        playload: res,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: ERROR,
+        playload: err.response.data,
+      })
+    );
 };
