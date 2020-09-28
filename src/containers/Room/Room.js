@@ -4,14 +4,17 @@ import { HeaderMain, FormRoom, ContentMessenage } from "../../components";
 import "./Room.scss";
 import io from "socket.io-client";
 import { useSelector } from "react-redux";
-import { apiConversation } from "../../services";
+import { apiConversation, apiNotification } from "../../services";
 
 let socket;
 export default function Room() {
-  const [messenages, setMessages] = useState([]);
   const reduxUserData = useSelector((state) => state.reduxUserData);
+
+  const [messenages, setMessages] = useState([]);
+  const [detailRoom, setDetailRoom] = useState({});
+
   const params = useParams();
-  const ENDPOIN = "http://localhost:3000";
+  const ENDPOIN = "http://localhost:3000/chat";
 
   useEffect(() => {
     socket = io(ENDPOIN);
@@ -31,11 +34,41 @@ export default function Room() {
     });
   }, [messenages]);
 
+  useEffect(() => {
+    apiConversation
+      .getDetailTheater(params.id)
+      .then((res) => setDetailRoom(res))
+      .catch((err) => console.log(err));
+  }, [params.id]);
+
   const handleSendMess = (values, resetForm) => {
     socket.emit("sendMess", {
       userId: reduxUserData.data.id,
       content: values.mes,
       theaterId: params.id,
+    });
+
+    const dataSendNotify = {
+      userIdRevice:
+        reduxUserData.data.id === detailRoom.userId
+          ? detailRoom.userId2
+          : detailRoom.userId,
+      content: values.mes,
+    };
+    console.log(detailRoom.userId);
+    console.log(reduxUserData.data.id);
+    console.log(dataSendNotify);
+
+    // apiNotification
+    //   .postSendNotification(dataSendNotify)
+    //   .then((res) => console.log())
+    //   .catch((err) => console.log(err));
+    socket.emit("messageNotify", {
+      userIdRevice:
+        reduxUserData.data.id === detailRoom.userId
+          ? detailRoom.userId2
+          : detailRoom.userId,
+      content: values.mes,
     });
     resetForm();
   };

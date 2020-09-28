@@ -13,5 +13,9 @@ const apiConversations = {
     const url = `messages/${id}`;
     return axiosClient.get(url);
   },
+  getDetailTheater: (id) => {
+    const url = `theater/${id}`;
+    return axiosClient.get(url);
+  },
 };
 export default apiConversations;

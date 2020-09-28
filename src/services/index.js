@@ -3,3 +3,4 @@ export { default as apiLogin } from "./apiLogin";
 export { default as apiUser } from "./apiUser";
 export { default as apiConversation } from "./apiConversation";
 export { default as apiFriends } from "./apiFriends";
+export { default as apiNotification } from "./apiNotification";
