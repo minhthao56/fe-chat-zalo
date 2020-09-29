@@ -54,22 +54,14 @@ export default function Room() {
           ? detailRoom.userId2
           : detailRoom.userId,
       content: values.mes,
+      userIdSender: reduxUserData.data.id === detailRoom.userId
+      ? detailRoom.userId
+      : detailRoom.userId2,
     };
-    console.log(detailRoom.userId);
-    console.log(reduxUserData.data.id);
-    console.log(dataSendNotify);
-
-    // apiNotification
-    //   .postSendNotification(dataSendNotify)
-    //   .then((res) => console.log())
-    //   .catch((err) => console.log(err));
-    socket.emit("messageNotify", {
-      userIdRevice:
-        reduxUserData.data.id === detailRoom.userId
-          ? detailRoom.userId2
-          : detailRoom.userId,
-      content: values.mes,
-    });
+    apiNotification
+      .postSendNotification(dataSendNotify)
+      .then((res) => console.log())
+      .catch((err) => console.log(err));
     resetForm();
   };
 

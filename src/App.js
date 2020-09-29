@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
+import { toast } from "react-toastify";
 
 import "./App.scss";
 
@@ -19,18 +20,17 @@ export default function App() {
     if (reduxUserData.data.id) {
       socket.emit("joinNoti", { userId: reduxUserData.data.id });
     }
+    socket.on("messNotify", (mes) => {
+      if (mes) {
+        toast(`${mes.userSender.name} send ${mes.content} for you`);
+      }
+    });
+
     return () => {
       socket.emit("disconnect");
       socket.off();
     };
   }, [ENDPOIN, reduxUserData.data.id]);
-
-  useEffect(() => {
-    socket.on("messNotify", (mess) => {
-      console.log(mess);
-    });
-    console.log("messNotify");
-  }, []);
 
   return (
     <div>
