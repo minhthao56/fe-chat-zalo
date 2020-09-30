@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./ResultSearch.scss";
 import { Empty, Avatar } from "../../index";
 import { useHistory } from "react-router-dom";
 
-export default function ResultSearch({ dataSearchFilter, handleAddFriend }) {
+export default function ResultSearch({
+  dataSearchFilter,
+  handleAddFriend,
+  setIsShowReultSearch,
+}) {
+  const wrapperRef = useRef(null);
+
   const history = useHistory();
-  const handleFriend = () => {
+  const handleCofirmFriend = () => {
     history.push("/contact");
   };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsShowReultSearch(false);
+      }
+    }
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   return (
-    <div className="result-search">
+    <div className="result-search" ref={wrapperRef}>
       <p className="result-search__title">Result search</p>
       <div className="result-search__container">
         {dataSearchFilter.map((user, i) => {
@@ -35,12 +52,15 @@ export default function ResultSearch({ dataSearchFilter, handleAddFriend }) {
               ) : user.type === 4 ? (
                 <div className="result-search__action">
                   <button
-                    onClick={handleFriend}
+                    onClick={handleCofirmFriend}
                     className="result-search__btn result-search__btn--skip"
                   >
                     Skip
                   </button>
-                  <button className="result-search__btn" onClick={handleFriend}>
+                  <button
+                    className="result-search__btn"
+                    onClick={handleCofirmFriend}
+                  >
                     Comfirm
                   </button>
                 </div>

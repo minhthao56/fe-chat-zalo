@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { X } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -17,6 +17,8 @@ export default function ModalAddFriend({ id }) {
     dispatch(doLoseModalAddFriend());
     dispatch(doLoseBlur());
   };
+
+  const wrapperRef = useRef(null);
 
   const handleSendReqAddFriend = (e) => {
     e.preventDefault();
@@ -40,10 +42,20 @@ export default function ModalAddFriend({ id }) {
 
   useEffect(() => {
     apiUser.getOneUser(id).then((res) => setDataUserWannaAddFriend(res));
+    
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        handleLoseModalAddFriend();
+      }
+    }
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
   }, [id]);
   return (
     <div className="add-friend">
-      <div className="add-friend__container">
+      <div className="add-friend__container" ref={wrapperRef}>
         <div className="add-friend__header">
           <p className="add-friend__title">Add friend</p>
           <X

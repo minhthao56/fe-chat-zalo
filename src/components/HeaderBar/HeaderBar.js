@@ -77,6 +77,7 @@ export default function HeaderBar() {
           <ResultSearch
             dataSearchFilter={dataSearchFilter}
             handleAddFriend={handleAddFriend}
+            setIsShowReultSearch = {setIsShowReultSearch}
           />
         )}
       </form>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ModalProfile.scss";
 import { X, Edit, Camera } from "react-feather";
 import { Avatar, Input, Button } from "../../index";
@@ -23,6 +23,7 @@ export default function ModalProfile() {
   const [imageBanner, setImageBanner] = useState(null);
 
   const dispatch = useDispatch();
+  const wrapperRef = useRef(null);
 
   const handleLoseUpdateInfo = () => {
     dispatch(doLoseUpdateInfo());
@@ -89,9 +90,21 @@ export default function ModalProfile() {
     },
   });
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        handleLoseUpdateInfo();
+      }
+    }
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="modal-profile">
-      <div className="modal-profile__container">
+      <div className="modal-profile__container" ref={wrapperRef}>
         <div className="modal-profile__header">
           <span className="modal-profile__title">Update Information</span>
           <X
