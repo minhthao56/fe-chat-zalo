@@ -22,64 +22,69 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();
 
 
 
-const check = () => {
-  if (!("serviceWorker" in navigator)) {
-    throw new Error("No Service Worker support!");
-  }
-  if (!("PushManager" in window)) {
-    throw new Error("No Push API Support!");
-  }
-};
+// const publicVapidKey =
+//   "BOo3F7CV18dk-hxAIk0Q59qRkVu0o_4MQNoLP7pLgDPXaUloBfOqnSqXBsEFCmW2H059TJABMbviIR7vkh6hORw";
 
-const registerServiceWorker = async () => {
-  const swUrl = `${process.env.PUBLIC_URL}/sw-push.js`;
-  console.log("swUrl", swUrl);
+// const urlB64ToUint8Array = (base64String) => {
+//   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+//   const base64 = (base64String + padding)
+//     .replace(/\-/g, "+")
+//     .replace(/_/g, "/");
+//   const rawData = atob(base64);
+//   const outputArray = new Uint8Array(rawData.length);
+//   for (let i = 0; i < rawData.length; ++i) {
+//     outputArray[i] = rawData.charCodeAt(i);
+//   }
+//   return outputArray;
+// };
 
-  const swRegistration = await navigator.serviceWorker.register(swUrl, {
-    scope: "/worker/",
-  });
-  return swRegistration;
-};
+// window.subscribe = async () => {
+//   if (!('serviceWorker' in navigator)) return;
 
-const requestNotificationPermission = async () => {
-  //const permission = await window.Notification.requestPermission();
+//   const registration = await navigator.serviceWorker.ready;
 
-  Notification.requestPermission((status) => {
-    console.log("Notification permission status:", status);
-  });
+//   // Subscribe to push notifications
+//   const subscription = await registration.pushManager.subscribe({
+//     userVisibleOnly: true,
+//     applicationServerKey: urlB64ToUint8Array(publicVapidKey),
+//   });
+//   console.log(subscription);
 
-  // value of permission can be 'granted', 'default', 'denied'
-  // granted: user has accepted the request
-  // default: user has dismissed the notification permission popup by clicking on x
-  // denied: user has denied the request.
+//   // await fetch('/subscription', {
+//   //   method: 'POST',
+//   //   body: JSON.stringify(subscription),
+//   //   headers: {
+//   //     'content-type': 'application/json',
+//   //   },
+//   // });
+// };
 
-  // if (permission !== "granted") {
-  //   throw new Error("Permission not granted for Notification");
-  // }
-};
-
-const main = async () => {
-  check();
-  const swRegistration = await registerServiceWorker();
-  await requestNotificationPermission();
-
-  console.log("swReg", swRegistration);
-
-  if (Notification.permission == "granted") {
-    navigator.serviceWorker.getRegistration("/worker/").then((reg) => {
-      console.log("About to show notification", reg);
-
-      // reg.showNotification("Hello world!");
-    });
-
-    // navigator.serviceWorker.ready.then(function(reg) {
-    //   new Notification("Helo");
-    // });
-  }
-};
-
-main();
+// if ("serviceWorker" in navigator) {
+//   const token = localStorage.getItem("token");
+//   console.log(token);
+//   navigator.serviceWorker
+//     .register("sw-push.js")
+//     .then(function () {
+//       return navigator.serviceWorker.ready;
+//     })
+//     .then(function (reg) {
+//       console.log("Service Worker is ready", reg);
+//       reg.pushManager
+//         .subscribe({
+//           userVisibleOnly: true,
+//           applicationServerKey: urlB64ToUint8Array(publicVapidKey),
+//         })
+//         .then(function (sub) {
+//           reg.active.postMessage(JSON.stringify({ uid: "dwd", token: "dwdw" }));
+//           console.log("Posted message");
+//           console.log(sub);
+//         });
+//     })
+//     .catch(function (error) {
+//       console.log("Error : ", error);
+//     });
+// }
