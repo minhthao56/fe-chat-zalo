@@ -22,69 +22,68 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register();
 
+/* Notification service worker check */
 
+const check = () => {
+  if (!("serviceWorker" in navigator)) {
+    throw new Error("No Service Worker support!");
+  }
+  if (!("PushManager" in window)) {
+    throw new Error("No Push API Support!");
+  }
+};
 
-// const publicVapidKey =
-//   "BOo3F7CV18dk-hxAIk0Q59qRkVu0o_4MQNoLP7pLgDPXaUloBfOqnSqXBsEFCmW2H059TJABMbviIR7vkh6hORw";
+const publicVapidKey =
+  "BOo3F7CV18dk-hxAIk0Q59qRkVu0o_4MQNoLP7pLgDPXaUloBfOqnSqXBsEFCmW2H059TJABMbviIR7vkh6hORw";
 
-// const urlB64ToUint8Array = (base64String) => {
-//   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-//   const base64 = (base64String + padding)
-//     .replace(/\-/g, "+")
-//     .replace(/_/g, "/");
-//   const rawData = atob(base64);
-//   const outputArray = new Uint8Array(rawData.length);
-//   for (let i = 0; i < rawData.length; ++i) {
-//     outputArray[i] = rawData.charCodeAt(i);
-//   }
-//   return outputArray;
-// };
+const urlB64ToUint8Array = (base64String) => {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, "+")
+    .replace(/_/g, "/");
+  const rawData = atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+};
 
-// window.subscribe = async () => {
-//   if (!('serviceWorker' in navigator)) return;
+const registerServiceWorker = async () => {
+  const swUrl = `${process.env.PUBLIC_URL}/sw-push.js`;
+  console.log("swUrl", swUrl);
+  const swRegistration = await navigator.serviceWorker.register(swUrl, {
+    scope: "/worker/",
+  });
 
-//   const registration = await navigator.serviceWorker.ready;
+  return swRegistration;
+};
 
-//   // Subscribe to push notifications
-//   const subscription = await registration.pushManager.subscribe({
-//     userVisibleOnly: true,
-//     applicationServerKey: urlB64ToUint8Array(publicVapidKey),
-//   });
-//   console.log(subscription);
+const requestNotificationPermission = async () => {
+  Notification.requestPermission((status) => {
+    console.log("Notification permission status:", status);
+  });
+};
 
-//   // await fetch('/subscription', {
-//   //   method: 'POST',
-//   //   body: JSON.stringify(subscription),
-//   //   headers: {
-//   //     'content-type': 'application/json',
-//   //   },
-//   // });
-// };
+const main = async () => {
+  check();
+  const swRegistration = await registerServiceWorker();
+  console.log("swReg", swRegistration);
+  const permission = await requestNotificationPermission();
+  // self.addEventListener("activate", async () => {
+  //   const sub = await swRegistration.pushManager.subscribe({
+  //     userVisibleOnly: true,
+  //     applicationServerKey: urlB64ToUint8Array(publicVapidKey),
+  //   });
+  //   console.log(sub);
+  // });
 
-// if ("serviceWorker" in navigator) {
-//   const token = localStorage.getItem("token");
-//   console.log(token);
-//   navigator.serviceWorker
-//     .register("sw-push.js")
-//     .then(function () {
-//       return navigator.serviceWorker.ready;
-//     })
-//     .then(function (reg) {
-//       console.log("Service Worker is ready", reg);
-//       reg.pushManager
-//         .subscribe({
-//           userVisibleOnly: true,
-//           applicationServerKey: urlB64ToUint8Array(publicVapidKey),
-//         })
-//         .then(function (sub) {
-//           reg.active.postMessage(JSON.stringify({ uid: "dwd", token: "dwdw" }));
-//           console.log("Posted message");
-//           console.log(sub);
-//         });
-//     })
-//     .catch(function (error) {
-//       console.log("Error : ", error);
-//     });
-// }
+  // swRegistration.active.postMessage("12345678");
+  var myWorker = new Worker("sw-push.js");
+
+  myWorker.postMessage(localStorage.getItem("token"));
+
+  serviceWorker.unregister();
+};
+main();

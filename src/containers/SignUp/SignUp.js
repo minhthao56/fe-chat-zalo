@@ -56,6 +56,7 @@ export default function SignUp() {
       }
     } else if (reduxUserData.type === SUCCESS) {
       localStorage.setItem("token", reduxUserData.data.token);
+
       window.location.replace("/");
       toast.success("Your acconut is created");
     } else {

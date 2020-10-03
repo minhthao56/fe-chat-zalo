@@ -10,6 +10,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { openDB, deleteDB, wrap, unwrap } from "idb";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -33,19 +34,53 @@ export default function Login() {
     onSubmit: (values) => dispatch(doLogin(values)),
   });
 
+  // async function doDatabaseStuff() {
+  //   const db = await openDB("token-store", 1, {
+  //     upgrade(db) {
+  //       db.createObjectStore("token");
+  //     },
+  //   });
+
+  //   const get = await db.put("token", "token", reduxUserData.data.token);
+  //   console.log(get);
+  // }
+  // doDatabaseStuff();
+
+  const indexIb = new Promise(function (resolve, reject) {
+    const dbPromise = openDB("token-store", 1, {
+      upgrade(db) {
+        db.createObjectStore("token");
+      },
+    });
+    const idbKeyval = {
+      async set(key, val) {
+        return (await dbPromise).put("token", val, key);
+      },
+    };
+    const r = idbKeyval.set("token", reduxUserData.data.token);
+    resolve(r);
+  });
+
   useEffect(() => {
-    if (reduxUserData.type === ERROR) {
-      if (Array.isArray(reduxUserData.data.message)) {
-        reduxUserData.data.message.forEach((mes) => toast.error(mes));
+    const innit = async () => {
+      if (reduxUserData.type === ERROR) {
+        if (Array.isArray(reduxUserData.data.message)) {
+          reduxUserData.data.message.forEach((mes) => toast.error(mes));
+        } else {
+          toast.error(reduxUserData.data.message);
+        }
+      } else if (reduxUserData.type === SUCCESS) {
+        localStorage.setItem("token", reduxUserData.data.token);
+        const a = await indexIb;
+        console.log(a);
+
+        window.location.replace("/");
       } else {
-        toast.error(reduxUserData.data.message);
+        history.push("/login");
       }
-    } else if (reduxUserData.type === SUCCESS) {
-      localStorage.setItem("token", reduxUserData.data.token);
-      window.location.replace("/");
-    } else {
-      history.push("/login");
-    }
+    };
+
+    innit();
   }, [reduxUserData, history]);
 
   return (
