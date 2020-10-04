@@ -10,12 +10,12 @@ import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import { openDB, deleteDB, wrap, unwrap } from "idb";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { doLogin } from "../../redux/actions";
 import { SUCCESS, ERROR } from "../../redux/constants";
+import CreateIndexDB from "../../helpers/CreateIndexDB";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -34,33 +34,6 @@ export default function Login() {
     onSubmit: (values) => dispatch(doLogin(values)),
   });
 
-  // async function doDatabaseStuff() {
-  //   const db = await openDB("token-store", 1, {
-  //     upgrade(db) {
-  //       db.createObjectStore("token");
-  //     },
-  //   });
-
-  //   const get = await db.put("token", "token", reduxUserData.data.token);
-  //   console.log(get);
-  // }
-  // doDatabaseStuff();
-
-  const indexIb = new Promise(function (resolve, reject) {
-    const dbPromise = openDB("token-store", 1, {
-      upgrade(db) {
-        db.createObjectStore("token");
-      },
-    });
-    const idbKeyval = {
-      async set(key, val) {
-        return (await dbPromise).put("token", val, key);
-      },
-    };
-    const r = idbKeyval.set("token", reduxUserData.data.token);
-    resolve(r);
-  });
-
   useEffect(() => {
     const innit = async () => {
       if (reduxUserData.type === ERROR) {
@@ -71,9 +44,8 @@ export default function Login() {
         }
       } else if (reduxUserData.type === SUCCESS) {
         localStorage.setItem("token", reduxUserData.data.token);
-        const a = await indexIb;
+        const a = await CreateIndexDB(reduxUserData.data.token);
         console.log(a);
-
         window.location.replace("/");
       } else {
         history.push("/login");

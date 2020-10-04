@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { doSignUp } from "../../redux/actions";
 import { SUCCESS, ERROR } from "../../redux/constants";
+import CreateIndexDB from "../../helpers/CreateIndexDB";
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -48,20 +49,24 @@ export default function SignUp() {
   });
 
   useEffect(() => {
-    if (reduxUserData.type === ERROR) {
-      if (Array.isArray(reduxUserData.data.message)) {
-        reduxUserData.data.message.forEach((mes) => toast.error(mes));
+    const innit = async () => {
+      if (reduxUserData.type === ERROR) {
+        if (Array.isArray(reduxUserData.data.message)) {
+          reduxUserData.data.message.forEach((mes) => toast.error(mes));
+        } else {
+          toast.error(reduxUserData.data.message);
+        }
+      } else if (reduxUserData.type === SUCCESS) {
+        localStorage.setItem("token", reduxUserData.data.token);
+        const a = await CreateIndexDB(reduxUserData.data.token);
+        console.log(a);
+        window.location.replace("/");
+        toast.success("Your acconut is created");
       } else {
-        toast.error(reduxUserData.data.message);
+        history.push("/signup");
       }
-    } else if (reduxUserData.type === SUCCESS) {
-      localStorage.setItem("token", reduxUserData.data.token);
-
-      window.location.replace("/");
-      toast.success("Your acconut is created");
-    } else {
-      history.push("/signup");
-    }
+    };
+    innit();
   }, [reduxUserData, history]);
 
   return (

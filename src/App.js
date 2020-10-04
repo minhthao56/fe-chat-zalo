@@ -8,29 +8,37 @@ import "./App.scss";
 import Routers from "./routers";
 import { Modals } from "./containers";
 
-let socket;
+// let socket;
 
 export default function App() {
   const reduxShowBlur = useSelector((state) => state.reduxShowBlur);
   const reduxUserData = useSelector((state) => state.reduxUserData);
-  const ENDPOIN = "http://localhost:3000/notification";
+  // const ENDPOIN = "http://localhost:3000/notification";
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    socket = io(ENDPOIN);
-    if (reduxUserData.data.id) {
-      socket.emit("joinNoti", { userId: reduxUserData.data.id });
-    }
+    var socket = io("/notification", {
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      },
+    });
+    socket.emit("joinNoti");
+
     socket.on("messNotify", (mes) => {
       if (mes) {
         toast(`${mes.userSender.name} send ${mes.content} for you`);
       }
     });
+    console.log("App");
 
     return () => {
-      socket.emit("disconnect");
       socket.off();
     };
-  }, [ENDPOIN, reduxUserData.data.id]);
+  }, []);
 
   return (
     <div>

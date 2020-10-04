@@ -34,22 +34,6 @@ const check = () => {
   }
 };
 
-const publicVapidKey =
-  "BOo3F7CV18dk-hxAIk0Q59qRkVu0o_4MQNoLP7pLgDPXaUloBfOqnSqXBsEFCmW2H059TJABMbviIR7vkh6hORw";
-
-const urlB64ToUint8Array = (base64String) => {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, "+")
-    .replace(/_/g, "/");
-  const rawData = atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-};
-
 const registerServiceWorker = async () => {
   const swUrl = `${process.env.PUBLIC_URL}/sw-push.js`;
   console.log("swUrl", swUrl);
@@ -71,19 +55,6 @@ const main = async () => {
   const swRegistration = await registerServiceWorker();
   console.log("swReg", swRegistration);
   const permission = await requestNotificationPermission();
-  // self.addEventListener("activate", async () => {
-  //   const sub = await swRegistration.pushManager.subscribe({
-  //     userVisibleOnly: true,
-  //     applicationServerKey: urlB64ToUint8Array(publicVapidKey),
-  //   });
-  //   console.log(sub);
-  // });
-
-  // swRegistration.active.postMessage("12345678");
-  var myWorker = new Worker("sw-push.js");
-
-  myWorker.postMessage(localStorage.getItem("token"));
-
-  serviceWorker.unregister();
 };
 main();
+serviceWorker.unregister();
