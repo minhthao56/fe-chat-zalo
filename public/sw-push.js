@@ -15,34 +15,34 @@ const urlB64ToUint8Array = (base64String) => {
 };
 
 self.addEventListener("activate", async () => {
+  console.log("activate");
   var request = indexedDB.open("token-store", 1);
+
   request.onsuccess = function (event) {
     var db = event.target.result;
-    if (db) {
-      var result = db.transaction("token").objectStore("token").get("token");
-      result.onsuccess = async (event) => {
-        const token = event.target.result;
-        try {
-          const applicationServerKey = urlB64ToUint8Array(publicVapidKey);
-          const options = { applicationServerKey, userVisibleOnly: true };
-          const subscription = await self.registration.pushManager.subscribe(
-            options
-          );
-          const SERVER_URL = "http://localhost:3000/notification/subscription";
-          const response = await fetch(SERVER_URL, {
-            method: "post",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(subscription),
-          });
-          console.log(response);
-        } catch (err) {
-          console.log("Error", err);
-        }
-      };
-    }
+    var result = db.transaction("token").objectStore("token").get("token");
+    result.onsuccess = async (event) => {
+      const token = event.target.result;
+      console.log(token);
+
+      const applicationServerKey = urlB64ToUint8Array(publicVapidKey);
+      const options = { applicationServerKey, userVisibleOnly: true };
+      const subscription = await self.registration.pushManager.subscribe(
+        options
+      );
+      console.log(subscription);
+      const SERVER_URL = "http://localhost:3000/notification/subscription";
+      const response = await fetch(SERVER_URL, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(subscription),
+      });
+
+      console.log(response);
+    };
   };
 });
 
