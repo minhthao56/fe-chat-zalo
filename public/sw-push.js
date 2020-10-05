@@ -51,6 +51,6 @@ self.addEventListener("push", (e) => {
   console.log(data);
   self.registration.showNotification(data.title, {
     body: data.body,
-    // icon: data.icon,
+    icon: data.icon,
   });
 });

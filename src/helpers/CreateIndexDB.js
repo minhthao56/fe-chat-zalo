@@ -3,6 +3,7 @@
 export default function (token) {
   const indexDB = new Promise(function (resolve, reject) {
     if (token) {
+      indexedDB.deleteDatabase("token-store");
       var request = window.indexedDB.open("token-store", 1);
 
       request.onupgradeneeded = (event) => {

@@ -42,7 +42,7 @@ export default function Login() {
         } else {
           toast.error(reduxUserData.data.message);
         }
-      } else if (reduxUserData.type === SUCCESS) {
+      } else if (reduxUserData.data.token) {
         localStorage.setItem("token", reduxUserData.data.token);
         const a = await CreateIndexDB(reduxUserData.data.token);
         console.log(a);
