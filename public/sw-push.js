@@ -51,6 +51,6 @@ self.addEventListener("push", (e) => {
   console.log(data);
   self.registration.showNotification(data.title, {
     body: data.body,
-    icon: data.icon,
+    icon: "https://zalo-chat-static.zadn.vn/v1/favicon-96x96.png",
   });
 });

@@ -18,12 +18,14 @@ export default function Room() {
 
   useEffect(() => {
     socket = io(ENDPOIN);
-    socket.emit("join", { ...params });
+    if (params.id) {
+      socket.emit("join", { ...params });
+      console.log("join");
+    }
     apiConversation
       .getAllMessOfConversation(params.id)
       .then((res) => setMessages(res));
     return () => {
-      socket.emit("disconnect");
       socket.off();
     };
   }, [ENDPOIN, params]);
@@ -54,9 +56,10 @@ export default function Room() {
           ? detailRoom.userId2
           : detailRoom.userId,
       content: values.mes,
-      userIdSender: reduxUserData.data.id === detailRoom.userId
-      ? detailRoom.userId
-      : detailRoom.userId2,
+      userIdSender:
+        reduxUserData.data.id === detailRoom.userId
+          ? detailRoom.userId
+          : detailRoom.userId2,
     };
     apiNotification
       .postSendNotification(dataSendNotify)
