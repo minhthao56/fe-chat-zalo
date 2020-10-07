@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
+    "emoji-mart": "^3.0.0",
     "formik": "^2.1.5",
     "http-proxy-middleware": "^1.0.5",
     "idb": "^5.0.6",
