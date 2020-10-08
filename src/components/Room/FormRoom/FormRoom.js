@@ -2,42 +2,39 @@ import React, { useState } from "react";
 import { Button } from "../../index";
 import { Send, Smile } from "react-feather";
 import "./FormRoom.scss";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import "emoji-mart/css/emoji-mart.css";
-import { Picker } from "emoji-mart";
+import Emoji from "./Emoji";
+
+// import "emoji-mart/css/emoji-mart.css";
+// import { Picker } from "emoji-mart";
 
 export default function FormRoom({ handleSendMess }) {
   const [isShowEmoji, setIsShowEmoji] = useState(false);
-  // const [valueEmoji, setValueEmoji] = useState("");
   const [valueMess, setValueMess] = useState("");
-  // Validation
-  const SignUpSchema = Yup.object().shape({
-    mes: Yup.string(),
-  });
-  const formik = useFormik({
-    initialValues: {
-      mes: "",
-    },
-    validationSchema: SignUpSchema,
-    onSubmit: (values, { resetForm }) => handleSendMess(valueMess, resetForm),
-  });
 
   const handleChangeMess = (e) => {
     const value = e.target.value;
     setValueMess(value);
   };
+  const handleSubmitSendMess = (e) => {
+    return handleSendMess(e, valueMess, setValueMess);
+  };
+
   return (
-    <form className="form-room" onSubmit={formik.handleSubmit}>
+    <form className="form-room" onSubmit={handleSubmitSendMess}>
       <div className="form-room__media">
         {isShowEmoji && (
-          <div className="form-room__emoji">
-            <Picker
-              set="twitter"
-              onSelect={(emoji) => setValueMess(valueMess + emoji.native)}
-              title="Zalo"
-            />
-          </div>
+          <Emoji
+            setValueMess={setValueMess}
+            valueMess={valueMess}
+            setIsShowEmoji={setIsShowEmoji}
+          />
+          // <div className="form-room__emoji" ref={wrapperRef}>
+          //   <Picker
+          //     set="twitter"
+          //     onSelect={(emoji) => setValueMess(valueMess + emoji.native)}
+          //     title="Zalo"
+          //   />
+          // </div>
         )}
         <Smile
           className="form-room__icon"
@@ -48,11 +45,7 @@ export default function FormRoom({ handleSendMess }) {
         type="text"
         placeholder="Your messenage"
         className="form-room__input"
-        // id="mes"
-        // name="mes"
-        // onChange={formik.handleChange}
         onChange={handleChangeMess}
-        // onBlur={formik.handleBlur}
         value={valueMess}
       />
       <Button type="submit" className="form-room__btn">

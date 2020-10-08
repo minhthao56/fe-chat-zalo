@@ -43,10 +43,11 @@ export default function Room() {
       .catch((err) => console.log(err));
   }, [params.id]);
 
-  const handleSendMess = (values, resetForm) => {
+  const handleSendMess = (e, valueMess, setValueMess) => {
+    e.preventDefault();
     socket.emit("sendMess", {
       userId: reduxUserData.data.id,
-      content: values.mes,
+      content: valueMess,
       theaterId: params.id,
     });
 
@@ -55,7 +56,7 @@ export default function Room() {
         reduxUserData.data.id === detailRoom.userId
           ? detailRoom.userId2
           : detailRoom.userId,
-      content: values.mes,
+      content: valueMess,
       userIdSender:
         reduxUserData.data.id === detailRoom.userId
           ? detailRoom.userId
@@ -63,9 +64,8 @@ export default function Room() {
     };
     apiNotification
       .postSendNotification(dataSendNotify)
-      .then((res) => console.log())
+      .then((res) => setValueMess(""))
       .catch((err) => console.log(err));
-    resetForm();
   };
 
   return (
