@@ -51,6 +51,10 @@ export default function Room() {
       theaterId: params.id,
     });
 
+    socket.emit("typing", {
+      statusTyping: false,
+    });
+
     const dataSendNotify = {
       userIdRevice:
         reduxUserData.data.id === detailRoom.userId
@@ -66,6 +70,19 @@ export default function Room() {
       .postSendNotification(dataSendNotify)
       .then((res) => setValueMess(""))
       .catch((err) => console.log(err));
+  };
+
+  const handleTypingMes = (value) => {
+    console.log(value);
+    if (value) {
+      socket.emit("typing", {
+        statusTyping: true,
+      });
+    } else {
+      socket.emit("typing", {
+        statusTyping: false,
+      });
+    }
   };
 
   useEffect(() => {
@@ -86,7 +103,10 @@ export default function Room() {
       />
 
       <div className="room__form">
-        <FormRoom handleSendMess={handleSendMess} />
+        <FormRoom
+          handleSendMess={handleSendMess}
+          handleTypingMes={handleTypingMes}
+        />
       </div>
     </div>
   );
