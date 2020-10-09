@@ -33,6 +33,12 @@ export default function ListConversation() {
                       : item.user.urlAvatar
                   }
                   className="conversation__img"
+                  showStatus={true}
+                  status={
+                    reduxUserData.data.id === item.user.id
+                      ? item.user2.status
+                      : item.user.status
+                  }
                 />
                 <div className="conversation__main">
                   <p className="conversation__name">

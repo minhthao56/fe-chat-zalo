@@ -68,6 +68,12 @@ export default function Room() {
       .catch((err) => console.log(err));
   };
 
+  useEffect(() => {
+    if (document.hasFocus) {
+      console.log("focus in ReactJS");
+    }
+  }, [params]);
+
   return (
     <div className="room">
       <div className="room__header">

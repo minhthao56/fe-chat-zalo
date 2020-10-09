@@ -1,7 +1,14 @@
 import React from "react";
 import "./Avatar.scss";
 
-export default function Avatar({ className, height, width, backgroundImage }) {
+export default function Avatar({
+  className,
+  height,
+  width,
+  backgroundImage,
+  status,
+  showStatus,
+}) {
   return (
     <div
       className={`avatar ${className}`}
@@ -10,6 +17,16 @@ export default function Avatar({ className, height, width, backgroundImage }) {
         width: width,
         backgroundImage: `url(${backgroundImage})`,
       }}
-    ></div>
+    >
+      {showStatus && (
+        <div
+          className={
+            status
+              ? "avatar__status "
+              : "avatar__status avatar__status--offline"
+          }
+        ></div>
+      )}
+    </div>
   );
 }

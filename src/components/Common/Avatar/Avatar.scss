@@ -6,4 +6,14 @@
     background-position: center;
     background-size: cover;
     cursor: pointer;
+    &__status {
+        height: 13px;
+        width: 13px;
+        border-radius: 50%;
+        background-color: #60b760;
+        border: solid 1px white;
+        &--offline {
+            background-color: gray;
+        }
+    }
 }
