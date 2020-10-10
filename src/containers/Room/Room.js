@@ -12,6 +12,7 @@ export default function Room() {
 
   const [messenages, setMessages] = useState([]);
   const [detailRoom, setDetailRoom] = useState({});
+  const [isTyping, setIsTying] = useState(false);
 
   const params = useParams();
   const ENDPOIN = "http://localhost:3000/chat";
@@ -20,15 +21,15 @@ export default function Room() {
     socket = io(ENDPOIN);
     if (params.id) {
       socket.emit("join", { ...params });
-      console.log("join");
     }
     apiConversation
       .getAllMessOfConversation(params.id)
       .then((res) => setMessages(res));
+
     return () => {
       socket.off();
     };
-  }, [ENDPOIN, params]);
+  }, [params]);
 
   useEffect(() => {
     socket.on("mess", (mess) => {
@@ -43,6 +44,14 @@ export default function Room() {
       .catch((err) => console.log(err));
   }, [params.id]);
 
+  useEffect(() => {
+    socket.on("typeStatus", (mess) => {
+      if (reduxUserData.data.id !== mess.userId) {
+        setIsTying(mess.statusTyping);
+      }
+    });
+  }, []);
+
   const handleSendMess = (e, valueMess, setValueMess) => {
     e.preventDefault();
     socket.emit("sendMess", {
@@ -52,7 +61,9 @@ export default function Room() {
     });
 
     socket.emit("typing", {
+      userId: reduxUserData.data.id,
       statusTyping: false,
+      theaterId: params.id,
     });
 
     const dataSendNotify = {
@@ -73,14 +84,17 @@ export default function Room() {
   };
 
   const handleTypingMes = (value) => {
-    console.log(value);
     if (value) {
       socket.emit("typing", {
+        userId: reduxUserData.data.id,
         statusTyping: true,
+        theaterId: params.id,
       });
     } else {
       socket.emit("typing", {
+        userId: reduxUserData.data.id,
         statusTyping: false,
+        theaterId: params.id,
       });
     }
   };
@@ -94,14 +108,14 @@ export default function Room() {
   return (
     <div className="room">
       <div className="room__header">
-        <HeaderMain />
+        <HeaderMain detailRoom = {detailRoom} />
       </div>
 
       <ContentMessenage
         messenages={messenages}
         userId={reduxUserData.data.id}
       />
-
+      {isTyping && <span className="room__typing">Typing...</span>}
       <div className="room__form">
         <FormRoom
           handleSendMess={handleSendMess}

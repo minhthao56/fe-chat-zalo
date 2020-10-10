@@ -35,7 +35,7 @@ export default function Contact() {
 
   return (
     <div className="contact">
-      <HeaderMain />
+      <HeaderMain detailRoom={{}} type={2} />
       <ListRequest
         handleConfirm={handleConfirm}
         dataRequestFriend={reduxRequestAddFriend}

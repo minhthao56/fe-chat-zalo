@@ -4,16 +4,15 @@ import HeaderList from "../Common/HeaderList/HeaderList";
 import Avatar from "../Common/Avatar/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { doGetConversationOfUser } from "../../redux/actions";
-import { SUCCESS } from "../../redux/constants";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
 export default function ListConversation() {
   const reduxConversation = useSelector((state) => state.reduxConversation);
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const dispatch = useDispatch();
-
   useEffect(() => {
-    if (reduxUserData.type === SUCCESS) {
+    if (reduxUserData.data.id) {
       dispatch(doGetConversationOfUser(reduxUserData.data.id));
     }
   }, [reduxUserData.data.id, dispatch, reduxUserData.type, reduxUserData]);
@@ -46,10 +45,16 @@ export default function ListConversation() {
                       ? item.user2.name
                       : item.user.name}
                   </p>
-                  <span className="conversation__mess">Last Messeage</span>
+                  <span className="conversation__mess">
+                    {reduxUserData.data.id === item.message[0].userId
+                      ? `You: ${item.message[0].content}`
+                      : `${item.user.name}: ${item.message[0].content}`}
+                  </span>
                 </div>
               </div>
-              <span className="conversation__time">Yesterday</span>
+              <Moment format="DD/MM/YYYY" className="conversation__time">
+                <span>{item.message[0].createAt}</span>
+              </Moment>
             </div>
           </Link>
         );

@@ -12,8 +12,6 @@ import { Modals } from "./containers";
 
 export default function App() {
   const reduxShowBlur = useSelector((state) => state.reduxShowBlur);
-  const reduxUserData = useSelector((state) => state.reduxUserData);
-  // const ENDPOIN = "http://localhost:3000/notification";
   const token = localStorage.getItem("token");
 
   useEffect(() => {
