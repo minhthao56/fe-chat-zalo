@@ -5,14 +5,17 @@ import "./Room.scss";
 import io from "socket.io-client";
 import { useSelector } from "react-redux";
 import { apiConversation, apiNotification } from "../../services";
+import { toast } from "react-toastify";
 
 let socket;
+let seeMore = 20;
 export default function Room() {
   const reduxUserData = useSelector((state) => state.reduxUserData);
 
   const [messenages, setMessages] = useState([]);
   const [detailRoom, setDetailRoom] = useState({});
   const [isTyping, setIsTying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
   const ENDPOIN = "http://localhost:3000/chat";
@@ -21,11 +24,10 @@ export default function Room() {
     socket = io(ENDPOIN);
     if (params.id) {
       socket.emit("join", { ...params });
+      apiConversation
+        .getAllMessOfConversation(params.id, { q: seeMore })
+        .then((res) => setMessages(res));
     }
-    apiConversation
-      .getAllMessOfConversation(params.id)
-      .then((res) => setMessages(res));
-
     return () => {
       socket.off();
     };
@@ -105,15 +107,32 @@ export default function Room() {
     }
   }, [params]);
 
+  const handleSeeMore = () => {
+    setIsLoading(true);
+    seeMore = seeMore + 20;
+    apiConversation
+      .getAllMessOfConversation(params.id, { q: seeMore })
+      .then((res) => {
+        setIsLoading(false);
+        setMessages([...res, ...messenages]);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        toast.error(err.response.data.message);
+      });
+  };
+
   return (
     <div className="room">
       <div className="room__header">
-        <HeaderMain detailRoom = {detailRoom} />
+        <HeaderMain detailRoom={detailRoom} />
       </div>
 
       <ContentMessenage
         messenages={messenages}
         userId={reduxUserData.data.id}
+        handleSeeMore={handleSeeMore}
+        isLoading={isLoading}
       />
       {isTyping && <span className="room__typing">Typing...</span>}
       <div className="room__form">

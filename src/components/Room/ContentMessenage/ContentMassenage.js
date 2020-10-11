@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ContentMessenage.scss";
 import Moment from "react-moment";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-export default function ContentMassenage({ messenages, userId }) {
+export default function ContentMassenage({
+  messenages,
+  userId,
+  handleSeeMore,
+  isLoading,
+}) {
   return (
     <ScrollToBottom className="massenage-scroll">
+      {isLoading ? (
+        <div className="massenage-scroll__more">Loading...</div>
+      ) : (
+        <div className="massenage-scroll__more" onClick={() => handleSeeMore()}>
+          See more 10 messenages
+        </div>
+      )}
+
       {messenages.map((mes, i) => {
         return (
           <div

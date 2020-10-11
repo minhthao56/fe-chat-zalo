@@ -9,9 +9,9 @@ const apiConversations = {
     const url = `theater/user/${id}`;
     return axiosClient.get(url);
   },
-  getAllMessOfConversation: (id) => {
+  getAllMessOfConversation: (id, params) => {
     const url = `messages/${id}`;
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   getDetailTheater: (id) => {
     const url = `theater/${id}`;

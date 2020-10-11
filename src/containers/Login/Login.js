@@ -10,11 +10,12 @@ import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { deleteDB } from "idb";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { doLogin } from "../../redux/actions";
-import { SUCCESS, ERROR } from "../../redux/constants";
+import { ERROR } from "../../redux/constants";
 import CreateIndexDB from "../../helpers/CreateIndexDB";
 
 export default function Login() {
@@ -51,6 +52,21 @@ export default function Login() {
         history.push("/login");
       }
     };
+
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+
+    const deleteIndexBD = async () => {
+      try {
+        await deleteDB("token-store");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    deleteIndexBD();
 
     innit();
   }, [reduxUserData, history]);

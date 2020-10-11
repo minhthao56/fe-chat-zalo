@@ -1,3 +1,5 @@
+@import "../../../assets/scss/variable.scss";
+
 .content-massenage {
     display: flex;
     font-size: 14px;
@@ -42,6 +44,8 @@
         font-weight: 300;
         color: #666666;
     }
+
+   
 }
 .massenage-scroll {
     overflow: scroll;
@@ -51,6 +55,14 @@
     }
     scrollbar-color: white white;
     scrollbar-width: none;
+    &__more{
+        font-size: 12px;
+        color: $primaryColor;
+        cursor: pointer;
+        text-align: center;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
 }
 .react-scroll-to-bottom--css-hgyba-1n7m0yu {
     scrollbar-width: thin;

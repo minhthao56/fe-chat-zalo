@@ -41,6 +41,7 @@ export default function FormRoom({ handleSendMess, handleTypingMes }) {
         className="form-room__input"
         onChange={handleChangeMess}
         value={valueMess}
+        required
       />
       <Button type="submit" className="form-room__btn">
         <Send size={18} />

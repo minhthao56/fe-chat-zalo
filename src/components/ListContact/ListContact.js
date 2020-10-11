@@ -47,6 +47,12 @@ export default function ListContact() {
               }
               alt=""
               className="list-contact__img"
+              showStatus={true}
+              status={
+                reduxUserData.data.id === item.userRequest.id
+                  ? item.user.status
+                  : item.userRequest.status
+              }
             />
             <div className="list-contact__main">
               <p className="list-contact__name">
