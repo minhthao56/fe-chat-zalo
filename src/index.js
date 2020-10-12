@@ -60,4 +60,4 @@ ReactDOM.render(
 
 // main();
 
-serviceWorker.unregister();
+serviceWorker.register();

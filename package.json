@@ -30,10 +30,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf build/ && react-scripts build && npm run-script sw-push",
-    "sw": "cat src/sw-push.js >> build/service-worker.js",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-sw": "http-server ./build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,8 +51,9 @@
     ]
   },
   "devDependencies": {
+    "http-server": "^0.12.3",
     "node-sass": "^4.14.1",
     "redux-logger": "^3.0.6"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://zalochat.ga"
 }

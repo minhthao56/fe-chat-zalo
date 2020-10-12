@@ -5,7 +5,7 @@ const token = localStorage.getItem("token");
 // const URL_BE = process.env.REACT_APP_URL_BE;
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "",
   headers: {
     "content-type": "application/json",
     Authorization: `Bearer ${token}`,
