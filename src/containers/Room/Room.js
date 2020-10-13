@@ -18,10 +18,19 @@ export default function Room() {
   const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
-  const ENDPOIN = "http://localhost:3000/chat";
+  // const ENDPOIN = "http://localhost:3003/api/chat";
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    socket = io(ENDPOIN);
+    socket = io("/chat", {
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      },
+    });
     if (params.id) {
       socket.emit("join", { ...params });
       apiConversation

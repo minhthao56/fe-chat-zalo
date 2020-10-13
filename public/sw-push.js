@@ -31,7 +31,7 @@ self.addEventListener("activate", async () => {
         options
       );
       console.log(subscription);
-      const SERVER_URL = "http://localhost:3000/notification/subscription";
+      const SERVER_URL = "http://localhost:3003/notification/subscription";
       const response = await fetch(SERVER_URL, {
         method: "post",
         headers: {
