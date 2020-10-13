@@ -10,7 +10,7 @@ module.exports = (app) => {
   const apiProxy = createProxyMiddleware("/api", {
     target: "http://localhost:3003",
     changeOrigin: true,
-    ws: true,
+    // ws: true,
     logLevel: "debug",
   });
   app.use(socketProxy);
