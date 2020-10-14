@@ -23,3 +23,17 @@
 .swiper-container-horizontal > .swiper-pagination-bullets {
   bottom: 0;
 }
+
+@media only screen and (max-width: 879px) {
+  .home-img {
+    max-width: 400px;
+    
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .home-img {
+    max-width: 300px;
+    
+  }
+}

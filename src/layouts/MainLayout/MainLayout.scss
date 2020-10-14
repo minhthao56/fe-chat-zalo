@@ -22,3 +22,42 @@
         flex: 1;
     }
 }
+
+@media only screen and (max-width: 992px) {
+    .main-layout {
+        &__container {
+            grid-template-columns: 35% 65%;
+        }
+        
+    }
+  }
+
+  @media only screen and (max-width: 786px) {
+    .main-layout {
+        &__container {
+            grid-template-columns: 40% 60%;
+        }
+        
+    }
+  }
+
+
+  @media only screen and (max-width: 786px) {
+    .main-layout {
+        &__container {
+            grid-template-columns: 40% 60%;
+        }
+        
+    }
+  }
+  
+  @media only screen and (max-width: 660px) {
+    .main-layout {
+        &__container {
+            display: flex;
+        }
+        &__side-bar{
+            display: none;
+        }
+    }
+  }

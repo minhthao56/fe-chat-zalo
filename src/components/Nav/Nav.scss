@@ -45,4 +45,8 @@
         color: white;
         cursor: pointer;
     }
+    &__list{
+        flex: 1;
+        overflow: scroll;
+    }
 }

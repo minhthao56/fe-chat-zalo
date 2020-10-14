@@ -46,6 +46,10 @@ export default function Nav() {
           </li>
         </Link>
       </ul>
+
+      <div className="nav__list">
+        <div>List</div>
+      </div>
       <LogOut className="nav__logout" onClick={() => HelperLogOut()} />
     </nav>
   );
