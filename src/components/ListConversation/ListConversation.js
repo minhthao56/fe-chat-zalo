@@ -9,6 +9,8 @@ import Moment from "react-moment";
 
 export default function ListConversation() {
   const reduxConversation = useSelector((state) => state.reduxConversation);
+  console.log(reduxConversation);
+
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,22 +41,31 @@ export default function ListConversation() {
                       : item.user.status
                   }
                 />
+
                 <div className="conversation__main">
                   <p className="conversation__name">
                     {reduxUserData.data.id === item.user.id
                       ? item.user2.name
                       : item.user.name}
                   </p>
-                  <span className="conversation__mess">
-                    {reduxUserData.data.id === item.message[0].userId
-                      ? `You: ${item.message[0].content}`
-                      : `${item.user.name}: ${item.message[0].content}`}
-                  </span>
+                  {item.message[0] ? (
+                    <span className="conversation__mess">
+                      {reduxUserData.data.id === item.message[0].userId
+                        ? `You: ${item.message[0].content}`
+                        : `${item.user.name}: ${item.message[0].content}`}
+                    </span>
+                  ) : (
+                    <span className="conversation__mess">No messages</span>
+                  )}
                 </div>
               </div>
-              <Moment format="DD/MM/YYYY" className="conversation__time">
-                <span>{item.message[0].createAt}</span>
-              </Moment>
+              {item.message[0] ? (
+                <Moment format="DD/MM/YYYY" className="conversation__time">
+                  <span>{item.message[0].createAt}</span>
+                </Moment>
+              ) : (
+                <span className="conversation__time">No time</span>
+              )}
             </div>
           </Link>
         );
