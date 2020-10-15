@@ -3,7 +3,7 @@ import "./ListConversation.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
 import Avatar from "../Common/Avatar/Avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { doGetConversationOfUser } from "../../redux/actions";
+import { doGetConversationOfUser, doDeleteTheater } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { X } from "react-feather";
@@ -11,16 +11,23 @@ import { X } from "react-feather";
 export default function ListConversation() {
   const [isShowDelete, setIsShowDetele] = useState(false);
   const [index, setIndex] = useState(-1);
-  const reduxConversation = useSelector((state) => state.reduxConversation);
-  console.log(reduxConversation);
 
+  const reduxConversation = useSelector((state) => state.reduxConversation);
+  const reduxDeleteTheater = useSelector((state) => state.reduxDeleteTheater);
   const reduxUserData = useSelector((state) => state.reduxUserData);
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (reduxUserData.data.id) {
       dispatch(doGetConversationOfUser(reduxUserData.data.id));
     }
-  }, [reduxUserData.data.id, dispatch, reduxUserData.type, reduxUserData]);
+  }, [
+    reduxUserData.data.id,
+    dispatch,
+    reduxUserData.type,
+    reduxUserData,
+    reduxDeleteTheater,
+  ]);
   const handleMouseEnter = (i) => {
     setIsShowDetele(true);
     setIndex(i);
@@ -28,6 +35,9 @@ export default function ListConversation() {
   const hanleMouseLeave = (i) => {
     setIsShowDetele(false);
     setIndex(i);
+  };
+  const handleDeleteTheater = () => {
+    dispatch(doDeleteTheater(reduxUserData.data.id));
   };
   return (
     <div className="conversation">
@@ -41,7 +51,11 @@ export default function ListConversation() {
               onMouseLeave={() => hanleMouseLeave(i)}
             >
               {isShowDelete && index === i ? (
-                <X className="conversation__icon" size={15} />
+                <X
+                  className="conversation__icon"
+                  size={15}
+                  onClick={handleDeleteTheater}
+                />
               ) : null}
 
               <div className="conversation__content">

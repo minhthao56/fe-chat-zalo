@@ -15,6 +15,8 @@ import {
   LIST_SEND_RESQEST_ADD_FRIEND,
   SHOW_UPDATE_INFO,
   LOSE_UPDATE_INFO,
+  DELETE_THEATER_ERROR,
+  DELETE_THEATER_SUCCESS,
 } from "../constants";
 import {
   apiSignUp,
@@ -231,6 +233,7 @@ export const doUpdateAvata = (id, data) => (dispatch) => {
       })
     );
 };
+
 export const doUpdateBanner = (id, data) => (dispatch) => {
   apiUser
     .updateImageBanner(id, data)
@@ -246,4 +249,16 @@ export const doUpdateBanner = (id, data) => (dispatch) => {
         playload: err.response.data,
       })
     );
+};
+
+export const doDeleteTheater = (id) => (dispatch) => {
+  apiConversation
+    .deleteOneTheater(id)
+    .then((res) => {
+      dispatch({
+        type: DELETE_THEATER_SUCCESS,
+        payload: res,
+      });
+    })
+    .catch((err) => console.log(err));
 };
