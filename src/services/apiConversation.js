@@ -17,5 +17,8 @@ const apiConversations = {
     const url = `theater/${id}`;
     return axiosClient.get(url);
   },
+  deleteOneTheater: (id)=>{
+const url = ``
+  }
 };
 export default apiConversations;

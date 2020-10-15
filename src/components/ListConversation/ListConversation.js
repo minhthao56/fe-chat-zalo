@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./ListConversation.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
 import Avatar from "../Common/Avatar/Avatar";
@@ -6,8 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { doGetConversationOfUser } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import { X } from "react-feather";
 
 export default function ListConversation() {
+  const [isShowDelete, setIsShowDetele] = useState(false);
+  const [index, setIndex] = useState(-1);
   const reduxConversation = useSelector((state) => state.reduxConversation);
   console.log(reduxConversation);
 
@@ -18,14 +21,29 @@ export default function ListConversation() {
       dispatch(doGetConversationOfUser(reduxUserData.data.id));
     }
   }, [reduxUserData.data.id, dispatch, reduxUserData.type, reduxUserData]);
-
+  const handleMouseEnter = (i) => {
+    setIsShowDetele(true);
+    setIndex(i);
+  };
+  const hanleMouseLeave = (i) => {
+    setIsShowDetele(false);
+    setIndex(i);
+  };
   return (
     <div className="conversation">
-      <HeaderList title="Conversation" />
+      <HeaderList title={`Conversation (${reduxConversation.length})`} />
       {reduxConversation.map((item, i) => {
         return (
           <Link to={`/room/${item.id}`} className="conversation__link" key={i}>
-            <div className="conversation__container">
+            <div
+              className="conversation__container"
+              onMouseEnter={() => handleMouseEnter(i)}
+              onMouseLeave={() => hanleMouseLeave(i)}
+            >
+              {isShowDelete && index === i ? (
+                <X className="conversation__icon" size={15} />
+              ) : null}
+
               <div className="conversation__content">
                 <Avatar
                   backgroundImage={
