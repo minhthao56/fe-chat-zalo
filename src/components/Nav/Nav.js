@@ -1,24 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MessageCircle, Book, LogOut } from "react-feather";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Nav.scss";
 
 import MenuProfile from "./MenuProfile/MenuProfile";
 import Avatar from "../Common/Avatar/Avatar";
+import NavConversation from "./NavConversation/NavConversation";
+import NavContact from "./NavContact/NavContact";
 import HelperLogOut from "../../helpers/Logout";
+
+import { doGetConversationOfUser, doGetListFriends } from "../../redux/actions";
 
 export default function Nav() {
   const location = useLocation();
   const pathName = location.pathname;
   const reduxUserData = useSelector((state) => state.reduxUserData);
+  const reduxDeleteTheater = useSelector((state) => state.reduxDeleteTheater);
+  const reduxConfirmFriend = useSelector((state) => state.reduxConfirmFriend);
+
   const { data } = reduxUserData;
+  const dispatch = useDispatch();
 
   const [isShowMenuProfile, setIsShowMenuProfile] = useState(false);
   const hanldeShowMenuProfile = () => {
     setIsShowMenuProfile(!isShowMenuProfile);
   };
+
+  useEffect(() => {
+    if (reduxUserData.data.id) {
+      dispatch(doGetConversationOfUser(reduxUserData.data.id));
+    }
+  }, [dispatch, reduxUserData, reduxDeleteTheater]);
+
+  useEffect(() => {
+    if (reduxUserData.data.id) {
+      dispatch(doGetListFriends(reduxUserData.data.id));
+    }
+  }, [dispatch, reduxUserData, reduxConfirmFriend]);
+
   return (
     <nav className="nav">
       <div className="nav__profile" onClick={hanldeShowMenuProfile}>
@@ -48,7 +69,7 @@ export default function Nav() {
       </ul>
 
       <div className="nav__list">
-        <div>List</div>
+        {pathName === "/" ? <NavConversation /> : <NavContact />}
       </div>
       <LogOut className="nav__logout" onClick={() => HelperLogOut()} />
     </nav>

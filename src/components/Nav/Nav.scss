@@ -45,8 +45,19 @@
         color: white;
         cursor: pointer;
     }
-    &__list{
+    &__list {
+        display: none;
         flex: 1;
         overflow: scroll;
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    .nav {
+        &__list {
+            display: block;
+            flex: 1;
+            overflow: scroll;
+        }
     }
 }

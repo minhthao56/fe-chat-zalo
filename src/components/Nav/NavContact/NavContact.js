@@ -1,16 +1,13 @@
 import React from "react";
+import "./NavContact.scss";
+import { Avatar } from "../../../components";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { apiConversation } from "../../../services";
 
-import "./ListContact.scss";
-import HeaderList from "../Common/HeaderList/HeaderList";
-import Avatar from "../Common/Avatar/Avatar";
-import { apiConversation } from "../../services";
-
-export default function ListContact() {
+export default function NavContact() {
   const reduxListFriend = useSelector((state) => state.reduxListFriend);
   const reduxUserData = useSelector((state) => state.reduxUserData);
-
   const history = useHistory();
 
   const handleCreateConversation = (id) => {
@@ -27,12 +24,12 @@ export default function ListContact() {
   };
 
   return (
-    <div className="list-contact">
-      <HeaderList title={` Your friends (${reduxListFriend.length})`} />
+    <div className="nav-contact">
+      <div className="nav-contact__title">{`Friend(${0})`}</div>
       {reduxListFriend.map((item, i) => {
         return (
           <div
-            className="list-contact__content"
+            className="nav-contact__avatar"
             key={i}
             onClick={() =>
               handleCreateConversation(
@@ -48,7 +45,6 @@ export default function ListContact() {
                   ? item.user.urlAvatar
                   : item.userRequest.urlAvatar
               }
-              className="list-contact__img"
               showStatus={true}
               status={
                 reduxUserData.data.id === item.userRequest.id
@@ -56,18 +52,6 @@ export default function ListContact() {
                   : item.userRequest.status
               }
             />
-            <div className="list-contact__main">
-              <p className="list-contact__name">
-                {reduxUserData.data.id === item.userRequest.id
-                  ? item.user.name
-                  : item.userRequest.name}
-              </p>
-              <span className="list-contact__email">
-                {reduxUserData.data.id === item.userRequest.id
-                  ? item.user.email
-                  : item.userRequest.email}
-              </span>
-            </div>
           </div>
         );
       })}
