@@ -1,51 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import "./ListConversation.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
 import Avatar from "../Common/Avatar/Avatar";
-import { useDispatch, useSelector } from "react-redux";
-import { doDeleteTheater } from "../../redux/actions";
+import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
-import { X } from "react-feather";
 
 export default function ListConversation() {
-  const [isShowDelete, setIsShowDetele] = useState(false);
-  const [index, setIndex] = useState(-1);
-
   const reduxConversation = useSelector((state) => state.reduxConversation);
   const reduxUserData = useSelector((state) => state.reduxUserData);
-  const dispatch = useDispatch();
 
-  const handleMouseEnter = (i) => {
-    setIsShowDetele(true);
-    setIndex(i);
-  };
-  const hanleMouseLeave = (i) => {
-    setIsShowDetele(false);
-    setIndex(i);
-  };
-  const handleDeleteTheater = () => {
-    dispatch(doDeleteTheater(reduxUserData.data.id));
-  };
   return (
     <div className="conversation">
       <HeaderList title={`Conversation (${reduxConversation.length})`} />
       {reduxConversation.map((item, i) => {
         return (
           <Link to={`/room/${item.id}`} className="conversation__link" key={i}>
-            <div
-              className="conversation__container"
-              onMouseEnter={() => handleMouseEnter(i)}
-              onMouseLeave={() => hanleMouseLeave(i)}
-            >
-              {isShowDelete && index === i ? (
-                <X
-                  className="conversation__icon"
-                  size={15}
-                  onClick={handleDeleteTheater}
-                />
-              ) : null}
-
+            <div className="conversation__container">
               <div className="conversation__content">
                 <Avatar
                   backgroundImage={

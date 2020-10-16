@@ -29,7 +29,6 @@ export default function NavContact() {
       {reduxListFriend.map((item, i) => {
         return (
           <div
-            className="nav-contact__avatar"
             key={i}
             onClick={() =>
               handleCreateConversation(
@@ -38,6 +37,7 @@ export default function NavContact() {
                   : item.userRequest.id
               )
             }
+            className="nav-contact__one"
           >
             <Avatar
               backgroundImage={
@@ -51,6 +51,7 @@ export default function NavContact() {
                   ? item.user.status
                   : item.userRequest.status
               }
+              className="nav-contact__avatar"
             />
           </div>
         );

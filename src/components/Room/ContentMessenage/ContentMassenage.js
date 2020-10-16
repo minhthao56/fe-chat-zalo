@@ -10,7 +10,6 @@ export default function ContentMassenage({
   handleSeeMore,
   isLoading,
 }) {
-  console.log(messenages);
   return (
     <ScrollToBottom className="massenage-scroll">
       {isLoading ? (
@@ -56,7 +55,7 @@ export default function ContentMassenage({
           );
         })
       ) : (
-        <span>"No any messenage"</span>
+        <div className = "massenage-scroll__no">"No any messenage"</div>
       )}
     </ScrollToBottom>
   );

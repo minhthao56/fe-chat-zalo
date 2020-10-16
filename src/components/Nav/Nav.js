@@ -69,7 +69,7 @@ export default function Nav() {
       </ul>
 
       <div className="nav__list">
-        {pathName === "/" ? <NavConversation /> : <NavContact />}
+        {pathName === "/contact" ? <NavContact /> : <NavConversation />}
       </div>
       <LogOut className="nav__logout" onClick={() => HelperLogOut()} />
     </nav>
