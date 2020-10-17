@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { Home, Login, SignUp, Contact, Room } from "../containers/index";
 
 import { MainLayout, BlankLayout } from "../layouts";
+import { ButtonHamburger } from "../components";
 
 import PubliceRoute from "./PublicRouter";
 import PrivateRouter from "./PrivateRouter";
@@ -11,6 +12,7 @@ import PrivateRouter from "./PrivateRouter";
 export default function Routers() {
   return (
     <Router>
+      <ButtonHamburger />
       <Switch>
         <PrivateRouter exact path={`/`} component={Home} layout={MainLayout} />
         <PubliceRoute

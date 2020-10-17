@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Avatar } from "../../../components";
 
 const url = "https://www.flaticon.com/svg/static/icons/svg/760/760737.svg";
-export default function HeaderMain({ detailRoom, type }) {
+export default function HeaderMain({ detailRoom, type, title }) {
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const [dataUser, setDataUser] = useState({});
 
@@ -28,7 +28,7 @@ export default function HeaderMain({ detailRoom, type }) {
       />
       <div>
         {type === 2 ? (
-          <span> All list friend</span>
+          <span> {title}</span>
         ) : (
           <>
             <h3 className="header-main__name">{dataUser.name}</h3>

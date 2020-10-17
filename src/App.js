@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
 import { toast } from "react-toastify";
-import { ButtonHamburger } from "./components";
-import Drawer from "rc-drawer";
-
 import "./App.scss";
 
 import Routers from "./routers";
@@ -42,13 +39,6 @@ export default function App() {
 
   return (
     <div>
-      <ButtonHamburger />
-      <Drawer width="20vw" open={true} handler={false} level={null}>
-        <div>OKKKKKKK</div>
-        <div>OKKKKKKK</div>
-        <div>OKKKKKKK</div>
-        <div>OKKKKKKK</div>
-      </Drawer>
       <div>
         <Modals />
       </div>
