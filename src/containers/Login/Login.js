@@ -11,12 +11,18 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { deleteDB } from "idb";
+import { GoogleLogin } from "react-google-login";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { doLogin } from "../../redux/actions";
+import {
+  doLogin,
+  loginGoogleSuccess,
+  loginGoogleError,
+} from "../../redux/actions";
 import { ERROR } from "../../redux/constants";
 import CreateIndexDB from "../../helpers/CreateIndexDB";
+import { apiLogin } from "../../services";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -67,10 +73,21 @@ export default function Login() {
         console.log(error);
       }
     };
-    deleteIndexBD();
 
+    deleteIndexBD();
     innit();
   }, [reduxUserData, history]);
+
+  const responseGoogle = (res) => {
+    apiLogin
+      .postLoginGoogle({ tokenId: res.tokenId })
+      .then((res) => {
+        dispatch(loginGoogleSuccess(res));
+      })
+      .catch((err) => {
+        dispatch(loginGoogleError(err.response.data));
+      });
+  };
 
   return (
     <div className="login">
@@ -113,6 +130,14 @@ export default function Login() {
             <Button type="submit">Login</Button>
           </div>
         </form>
+        <GoogleLogin
+          clientId="184515481576-3pr72umu9nmn7mblu4jvn5b45vu1o5uk.apps.googleusercontent.com"
+          buttonText="Login Or Register with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
+        ,
         <Link className="login__link" to="/signup">
           Sign Up
         </Link>

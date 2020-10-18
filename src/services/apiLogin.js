@@ -9,5 +9,9 @@ const apiLogin = {
     const url = "auth";
     return axiosClient.get(url);
   },
+  postLoginGoogle: (data) => {
+    const url = "auth/google";
+    return axiosClient.post(url, data);
+  },
 };
 export default apiLogin;

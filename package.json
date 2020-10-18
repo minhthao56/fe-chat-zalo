@@ -17,6 +17,7 @@
     "react-burger-menu": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
+    "react-google-login": "^5.1.21",
     "react-moment": "^0.9.7",
     "react-redux": "^7.2.1",
     "react-responsive": "^8.1.0",

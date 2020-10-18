@@ -61,6 +61,19 @@ export const doLogin = (values) => (dispatch) => {
     );
 };
 
+export const loginGoogleSuccess = (token) => (dispatch) => {
+  dispatch({
+    type: SUCCESS,
+    playload: token,
+  });
+};
+export const loginGoogleError = (err) => (dispatch) => {
+  dispatch({
+    type: ERROR,
+    playload: err,
+  });
+};
+
 export const doCheckLogin = () => (dispatch) => {
   apiLogin
     .getCheckLogin()
