@@ -11,6 +11,7 @@ import reduxListSendReqAddFriend from "./reduceListSendReqAddFriend";
 import reduxRequestAddFriend from "./reduceRequestAddFriend";
 import reduxModalUpdateInfo from "./reducerModalUpdateInfo";
 import reducerDeleteTheater from "./reducerDeleteTheater";
+import reducerCreateTheater from "./reducerCreateTheater";
 
 const rootReducer = combineReducers({
   reduxUserData: reduxUserData,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   reduxRequestAddFriend: reduxRequestAddFriend,
   reduxModalUpdateInfo: reduxModalUpdateInfo,
   reduxDeleteTheater: reducerDeleteTheater,
+  reduxCreateTheater: reducerCreateTheater,
 });
 
 export default rootReducer;

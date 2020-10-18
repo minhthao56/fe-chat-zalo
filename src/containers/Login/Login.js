@@ -5,6 +5,7 @@ import {
   Input,
   Button,
   ContainerAuth,
+  AcountTest,
 } from "../../components";
 import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
@@ -91,6 +92,7 @@ export default function Login() {
 
   return (
     <div className="login">
+      <AcountTest />
       <ContainerAuth>
         <div className="login__logo">
           <LogoBlankLayout />

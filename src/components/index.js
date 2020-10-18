@@ -24,3 +24,4 @@ export { default as HomeImage } from "./Home/HomeImage/HomeImage";
 
 export { default as ModalProfile } from "./Modal/ModalProfile/ModalProfile";
 export { default as ButtonHamburger } from "./Home/ButtonHamburger/ButtonHamburger";
+export { default as AcountTest } from "./Common/AcountTest/AcountTest";

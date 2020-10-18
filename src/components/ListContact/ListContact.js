@@ -1,30 +1,34 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import "./ListContact.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
 import Avatar from "../Common/Avatar/Avatar";
-import { apiConversation } from "../../services";
+import { doCreateTheater } from "../../redux/actions";
 
 export default function ListContact() {
   const reduxListFriend = useSelector((state) => state.reduxListFriend);
   const reduxUserData = useSelector((state) => state.reduxUserData);
+  const reduxCreateTheater = useSelector((state) => state.reduxCreateTheater);
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleCreateConversation = (id) => {
     const dataUser = {
       userId: id,
       userId2: reduxUserData.data.id,
     };
-    apiConversation
-      .postCreateConversation(dataUser)
-      .then((res) => {
-        history.push("/");
-      })
-      .catch((err) => console.log(err));
+    dispatch(doCreateTheater(dataUser));
   };
+
+  useEffect(() => {
+    if (reduxCreateTheater.id) {
+      history.push(`/room/${reduxCreateTheater.id}`);
+    }
+    console.log(reduxCreateTheater.id);
+  }, [reduxCreateTheater]);
 
   return (
     <div className="list-contact">

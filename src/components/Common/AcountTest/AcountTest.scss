@@ -1,0 +1,13 @@
+.acount-test{
+    position: fixed;
+    top: 2px;
+    left:  5px;
+    &__container{
+        background-color: white;
+        font-size: 10px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow:  0 2px 15px 0 rgba(#888888, 0.2);
+        margin-bottom: 10px;
+    }
+}

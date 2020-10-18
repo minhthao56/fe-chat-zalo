@@ -17,6 +17,8 @@ import {
   LOSE_UPDATE_INFO,
   DELETE_THEATER_ERROR,
   DELETE_THEATER_SUCCESS,
+  CREATE_THEATER_ERROR,
+  CREATE_THEATER_SUCCESS,
 } from "../constants";
 import {
   apiSignUp,
@@ -274,4 +276,21 @@ export const doDeleteTheater = (id) => (dispatch) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+export const doCreateTheater = (data) => (dispatch) => {
+  apiConversation
+    .postCreateConversation(data)
+    .then((res) => {
+      dispatch({
+        type: CREATE_THEATER_SUCCESS,
+        payload: res,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: CREATE_THEATER_ERROR,
+        payload: err,
+      });
+    });
 };

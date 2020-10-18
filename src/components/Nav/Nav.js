@@ -19,6 +19,7 @@ export default function Nav() {
   const reduxUserData = useSelector((state) => state.reduxUserData);
   const reduxDeleteTheater = useSelector((state) => state.reduxDeleteTheater);
   const reduxConfirmFriend = useSelector((state) => state.reduxConfirmFriend);
+  const reduxCreateTheater = useSelector((state) => state.reduxCreateTheater);
 
   const { data } = reduxUserData;
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function Nav() {
     if (reduxUserData.data.id) {
       dispatch(doGetConversationOfUser(reduxUserData.data.id));
     }
-  }, [dispatch, reduxUserData, reduxDeleteTheater]);
+  }, [dispatch, reduxUserData, reduxDeleteTheater, reduxCreateTheater]);
 
   useEffect(() => {
     if (reduxUserData.data.id) {
