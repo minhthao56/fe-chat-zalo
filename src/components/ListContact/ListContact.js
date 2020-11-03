@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import "./ListContact.scss";
 import HeaderList from "../Common/HeaderList/HeaderList";
 import Avatar from "../Common/Avatar/Avatar";
-import { doCreateTheater } from "../../redux/actions";
+import { doCreateTheater, doCreateTheaterReset } from "../../redux/actions";
 
 export default function ListContact() {
   const reduxListFriend = useSelector((state) => state.reduxListFriend);
@@ -26,8 +26,8 @@ export default function ListContact() {
   useEffect(() => {
     if (reduxCreateTheater.id) {
       history.push(`/room/${reduxCreateTheater.id}`);
+      dispatch(doCreateTheaterReset());
     }
-    console.log(reduxCreateTheater.id);
   }, [reduxCreateTheater]);
 
   return (

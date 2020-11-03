@@ -19,6 +19,7 @@ import {
   DELETE_THEATER_SUCCESS,
   CREATE_THEATER_ERROR,
   CREATE_THEATER_SUCCESS,
+  CREATE_THEATER_RESET,
 } from "../constants";
 import {
   apiSignUp,
@@ -293,4 +294,10 @@ export const doCreateTheater = (data) => (dispatch) => {
         payload: err,
       });
     });
+};
+
+export const doCreateTheaterReset = () => (dispatch) => {
+  dispatch({
+    type: CREATE_THEATER_RESET,
+  });
 };
